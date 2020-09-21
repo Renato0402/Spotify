@@ -1,0 +1,21 @@
+.toolbar {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 70px;
+    display: flex;
+    align-items: center;
+    background-color: black;
+    color: white;
+    font-weight: 600;
+}
+
+.navbar-brand {
+    margin-left: 15%;
+}
+
+#texto {
+    color: white;
+    margin-right: 92px;
+}
