@@ -12,7 +12,9 @@
 }
 
 .navbar-brand {
+    position: relative;
     margin-left: 15%;
+    padding-right: 0px;
 }
 
 #texto {

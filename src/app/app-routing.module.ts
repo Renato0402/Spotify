@@ -5,8 +5,7 @@ import { HomeComponent } from './home/home.component';
 import { AjudaComponent } from './page/ajuda/ajuda.component';
 
 const routes: Routes = [
-  { path: '', redirectTo: '/home', pathMatch: 'full' },
-  { path: "home", component: HomeComponent },
+  {path: "home", component: HomeComponent},
   { path: "ajuda", component: AjudaComponent }
 ];
 
