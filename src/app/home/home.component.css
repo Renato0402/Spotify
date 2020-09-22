@@ -1,5 +1,15 @@
 .player-div {
-    position: absolute;
+    position: relative;
     background: #2d46b9;
-    height: 10%;
+    height: 95%;
+}
+
+#span1 {
+    color: #1ED760;
+    margin-left: 35%;
+    font-size: 50px;
+}
+
+#video {
+    width: 100%;
 }
