@@ -12,12 +12,11 @@
 }
 
 .navbar-brand {
-    position: relative;
     margin-left: 15%;
-    padding-right: 0px;
+    width: 144px;
 }
 
 #texto {
     color: white;
-    margin-right: 92px;
+    margin-right: 280px;
 }
