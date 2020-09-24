@@ -7,12 +7,13 @@ import { Component, OnInit } from '@angular/core';
 })
 
 export class FooterComponent implements OnInit {
+  Data: number = Date.now()
 
   constructor() {}
 
   ngOnInit(): void {
     let date = new Date(Date.now());
 
-    document.getElementById("data").textContent = date.toLocaleDateString('PT-BR')
+    //document.getElementById("data").textContent = date.toLocaleDateString('PT-BR')
   }
 }
