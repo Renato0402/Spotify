@@ -5,9 +5,13 @@ import { HomeComponent } from './home/home.component';
 import { AjudaComponent } from './page/ajuda/ajuda.component';
 
 const routes: Routes = [
-  {path: '', pathMatch: 'full', redirectTo: 'home'},
-  { path: "home", component: HomeComponent },
-  { path: "ajuda", component: AjudaComponent }
+  {
+    path: '',
+    pathMatch: 'full',
+    redirectTo: 'home'
+},
+  {path: "home", component: HomeComponent},
+  { path: "ajuda", component: AjudaComponent}
 ];
 
 @NgModule({
