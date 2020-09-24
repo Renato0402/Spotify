@@ -12,7 +12,7 @@ export class FooterComponent implements OnInit {
   constructor() {}
 
   ngOnInit(): void {
-    let date = new Date(Date.now());
+    //let date = new Date(Date.now());
 
     //document.getElementById("data").textContent = date.toLocaleDateString('PT-BR')
   }
