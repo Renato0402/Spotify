@@ -11,6 +11,10 @@
     font-weight: 600;
 }
 
+.navbar{
+    background-color: black;
+}
+
 .navbar-brand {
     margin-left: 15%;
     width: 144px;
