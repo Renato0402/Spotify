@@ -11,6 +11,7 @@ import { HomeComponent } from './page/home/home.component';
 import { FooterComponent } from './footer/footer.component';
 import { PlaylistsComponent } from './page/playlists/playlists.component';
 import { EntrarComponent } from './page/entrar/entrar.component';
+import { MusicasComponent } from './page/musicas/musicas.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { EntrarComponent } from './page/entrar/entrar.component';
     HomeComponent,
     FooterComponent,
     PlaylistsComponent,
-    EntrarComponent
+    EntrarComponent,
+    MusicasComponent
   ],
   imports: [
     BrowserModule,

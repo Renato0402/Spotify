@@ -1,18 +1,27 @@
 <div class="container-fluid">
 
-    <h2 id="fraseServ">Outros Serviços Unifor:</h2>
+    <h2 id="fraseServ">Playlists</h2>
 
     <div class="card-columns">
-        <div class="card ">
-            <div class="card-body text-center ">
-                <h4 class=" card-title ">Eventos</h4>
-            </div>
+        <div class="card" *ngFor="let playlist of playlists">
+            <a class="clicable" routerLink="/musicas">
+                <img class="card-img-top" (click)="setMusicIndex(playlist.id)" src="{{playlist.capa}} " alt="jpg ">
+
+                <div class="card-img-top img-fluid ">
+                    <div class="card-block ">
+                        <h4 class="card-title ">{{playlist.nome}}</h4>
+                    </div>
+                </div>
+            </a>
         </div>
+        <!--
         <div class="card ">
             <div class="card-body text-center ">
+                <img src="assets/images/capas/Top50Global.jpg " alt=" jpg ">
                 <h4 class=" card-title ">Notícias</h4>
             </div>
         </div>
+        
         <div class="card ">
             <div class="card-body text-center ">
                 <h4 class=" card-title ">Midias Sociais</h4>
@@ -32,6 +41,6 @@
             <div class="card-body text-center ">
                 <h4 class=" card-title ">Feira de Profissões</h4>
             </div>
-        </div>
+        </div>-->
     </div>
 </div>

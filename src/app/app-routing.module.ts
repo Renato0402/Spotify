@@ -5,12 +5,14 @@ import { HomeComponent } from './page/home/home.component';
 import { AjudaComponent } from './page/ajuda/ajuda.component';
 import { EntrarComponent } from './page/entrar/entrar.component';
 import { PlaylistsComponent } from './page/playlists/playlists.component';
+import { MusicasComponent } from './page/musicas/musicas.component';
 
 const routes: Routes = [
   {path: '',pathMatch: 'full',redirectTo: 'home'},
   {path: "home", component: HomeComponent},
   {path: "entrar", component: EntrarComponent},
   {path: "playlists", component: PlaylistsComponent},
+  {path: "musicas", component: MusicasComponent},
   {path: "ajuda", component: AjudaComponent}
 ];
 
