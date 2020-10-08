@@ -1,12 +1,16 @@
 import { Component, NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { AppComponent } from './app.component';
-import { HomeComponent } from './home/home.component';
+import { HomeComponent } from './page/home/home.component';
 import { AjudaComponent } from './page/ajuda/ajuda.component';
+import { EntrarComponent } from './page/entrar/entrar.component';
+import { PlaylistsComponent } from './page/playlists/playlists.component';
 
 const routes: Routes = [
   {path: '',pathMatch: 'full',redirectTo: 'home'},
   {path: "home", component: HomeComponent},
+  {path: "entrar", component: EntrarComponent},
+  {path: "playlists", component: PlaylistsComponent},
   {path: "ajuda", component: AjudaComponent}
 ];
 
