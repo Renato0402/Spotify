@@ -7,10 +7,10 @@ import { NavbarComponent } from './navbar/navbar.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AjudaComponent } from './page/ajuda/ajuda.component';
 import { YouTubePlayerModule } from "@angular/youtube-player";
-import { HomeComponent } from './home/home.component';
+import { HomeComponent } from './page/home/home.component';
 import { FooterComponent } from './footer/footer.component';
-import { PlaylistsComponent } from './playlists/playlists.component';
-import { EntrarComponent } from './entrar/entrar.component';
+import { PlaylistsComponent } from './page/playlists/playlists.component';
+import { EntrarComponent } from './page/entrar/entrar.component';
 
 @NgModule({
   declarations: [

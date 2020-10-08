@@ -17,7 +17,17 @@
     width: 144px;
 }
 
-#texto {
+#entrar {
+    color: white;
+    margin-right: 40px;
+}
+
+#playlists {
+    color: white;
+    margin-right: 40px;
+}
+
+#ajuda {
     color: white;
     margin-right: 280px;
 }
