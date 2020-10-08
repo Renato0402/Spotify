@@ -9,6 +9,8 @@ import { AjudaComponent } from './page/ajuda/ajuda.component';
 import { YouTubePlayerModule } from "@angular/youtube-player";
 import { HomeComponent } from './home/home.component';
 import { FooterComponent } from './footer/footer.component';
+import { PlaylistsComponent } from './playlists/playlists.component';
+import { EntrarComponent } from './entrar/entrar.component';
 
 @NgModule({
   declarations: [
@@ -16,7 +18,9 @@ import { FooterComponent } from './footer/footer.component';
     NavbarComponent,
     AjudaComponent,
     HomeComponent,
-    FooterComponent
+    FooterComponent,
+    PlaylistsComponent,
+    EntrarComponent
   ],
   imports: [
     BrowserModule,
