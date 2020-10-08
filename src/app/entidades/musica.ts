@@ -1,3 +1,5 @@
+import { SourceFile } from 'typescript'
+
 export class Musica{
     id: Number
     nome: String

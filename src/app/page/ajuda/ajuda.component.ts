@@ -7,6 +7,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AjudaComponent implements OnInit {
   acc: HTMLCollection
+  a:String
 
   constructor() {
     this.acc = document.getElementsByClassName("accordion");
