@@ -1,3 +1,27 @@
-#a {
-    margin-top: 2000px;
+.container-fluid {
+    background-color: rgba(12, 12, 12, 0.966);
+    margin-top: 70.4px;
+    width: 100%;
+}
+
+#fraseServ {
+    text-align: center;
+    color: white;
+    padding-top: 0.5%;
+    padding-bottom: 0.5%;
+}
+
+.card-columns {
+    margin-left: 10%;
+    margin-right: 10%;
+}
+
+.card {
+    background-color: rgb(39, 37, 37);
+    border-radius: 8px;
+}
+
+.card-title {
+    text-align: center;
+    color: white;
 }

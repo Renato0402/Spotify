@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { PlaylistsMock } from 'src/app/mock/playlistsMock';
 import { PlaylistClicadaService } from 'src/app/services/playlist-clicada.service';
 
 @Component({
@@ -7,16 +8,22 @@ import { PlaylistClicadaService } from 'src/app/services/playlist-clicada.servic
   styleUrls: ['./musicas.component.css']
 })
 export class MusicasComponent implements OnInit {
+  mock: PlaylistsMock
   service: PlaylistClicadaService
-  a: HTMLCollection
   
   constructor(service: PlaylistClicadaService) {
+    this.mock = new PlaylistsMock
     this.service = service
-    this.a = document.getElementsByClassName("a")
   }
 
   ngOnInit(): void {
-    this.a[0].textContent = String(this.service.index)
+
+  }
+
+  castIndex(index: Number){
+    let aux = index
+
+    return Number(aux)
   }
 
 }
