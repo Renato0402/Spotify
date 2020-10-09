@@ -1,22 +1,73 @@
-<div class="container-fluid">
+<div class="card-background">
+    <div class="d-flex">
+        <div class="card-img">
+            <img src="assets\images\capas\Top50Global.jpg" alt="capa">
+        </div>
 
-    <h2 id="fraseServ">Playlists</h2>
+        <div class="cards">
+            <h2 id="fraseServ">Musicas</h2>
 
-    <!--<div class="card">
-    <ul class="list-group list-group-flush">
-        <li class="list-group-item">Cras justo odio</li>
-    </ul>
-</div>-->
+            <div class="card">
+                <div class="d-flex">
+                    <div id="playButtom" class="p-2">
+                        <h4 class="playButtom">#</h4>
+                    </div>
 
-    <div class="card-columns">
-        <div class="card" *ngFor="let musica of mock.playlists[castIndex(service.index)].musicas">
-            <a class="clicable" routerLink="/musicas">
+                    <div id="nome" class="p-2">
+                        <h4 class="card-title">Título</h4>
+                    </div>
+
+                    <div id="album" class="p-2">
+                        <h4 class="card-title">Álbum</h4>
+                    </div>
+
+                    <div id="artista" class="p-2">
+                        <h4 class="card-title ">Artista</h4>
+                    </div>
+
+                    <div id="duration" class="p-2 justify-content-end">
+                        <h4 class="card-title">Duração</h4>
+                    </div>
+                </div>
+            </div>
+
+            <hr>
+
+            <div class="card" *ngFor="let musica of mock.playlists[castIndex(service.index)].musicas">
+                <div class="d-flex ">
+                    <div id="playButtom" class="p-2">
+                        <button class="playButtom ">Play</button>
+                    </div>
+
+                    <div id="nome" class="p-2">
+                        <h4 class="card-title">{{musica.nome}}</h4>
+                    </div>
+
+                    <div id="album" class="p-2">
+                        <h4 class="card-title ">{{musica.album}}</h4>
+                    </div>
+
+                    <div id="artista" class="p-2">
+                        <h4 class="card-title">{{musica.artista}}</h4>
+                    </div>
+
+                    <div id="duration" class="p-2 justify-content-end">
+                        <h4 class="card-title">{{musica.duration}}</h4>
+                    </div>
+                </div>
+            </div>
+
+            <!--<div class="card-columns ">
+        <div class="card " *ngFor="let musica of mock.playlists[castIndex(service.index)].musicas ">
+            <a class="clicable " routerLink="/musicas ">
                 <div class="card-img-top img-fluid ">
                     <div class="card-block ">
                         <h4 class="card-title ">{{musica.nome}}</h4>
                     </div>
                 </div>
             </a>
+        </div>
+        </div>-->
         </div>
     </div>
 </div>
