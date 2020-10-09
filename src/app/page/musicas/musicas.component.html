@@ -1,1 +1,22 @@
-<p class="a"></p>
+<div class="container-fluid">
+
+    <h2 id="fraseServ">Playlists</h2>
+
+    <!--<div class="card">
+    <ul class="list-group list-group-flush">
+        <li class="list-group-item">Cras justo odio</li>
+    </ul>
+</div>-->
+
+    <div class="card-columns">
+        <div class="card" *ngFor="let musica of mock.playlists[castIndex(service.index)].musicas">
+            <a class="clicable" routerLink="/musicas">
+                <div class="card-img-top img-fluid ">
+                    <div class="card-block ">
+                        <h4 class="card-title ">{{musica.nome}}</h4>
+                    </div>
+                </div>
+            </a>
+        </div>
+    </div>
+</div>
