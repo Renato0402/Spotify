@@ -18,25 +18,17 @@ export class MusicasComponent implements OnInit {
   }
 
   ngOnInit(): void {
-
+    this.coverBackground()
   }
 
-  coverBackground(): any {
+  coverBackground(){
     let img = <HTMLImageElement>document.getElementById("coverBackground")
 
     img.onload = function () {
       let colorThief = new ColorThief();
       let color = colorThief.getColor(img)
-      let RGBColors = String(color).replace(",", "").replace(",", "")
-      let HEXColors = Number(RGBColors).toString(16)
 
-      if(HEXColors.length < 2){
-        HEXColors = "0" + HEXColors
-      }
-
-      var a = {'background-color': "#" + HEXColors.toString}
-
-      return a;
+      document.getElementById("header").style.backgroundImage = "linear-gradient(rgb(" + color + "), rgba(12, 12, 12, 0.966))"
     };
   }
 
