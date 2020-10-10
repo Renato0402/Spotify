@@ -1,26 +1,12 @@
-.card-background {
-    height: 100%;
-    background-color: rgba(12, 12, 12, 0.966);
-    margin-top: 70.4px;
-}
-
-.card-img {
-    width: 10%;
-    height: 10%;
-    margin-top: 1%;
-    margin-right: 50%;
-}
-
 img {
-    width: 100%;
-    height: 100%;
+    width: 12%;
+    height: 12%;
 }
 
 .cards {
-    display: inline-block;
+    margin-top: 8%;
     width: 100%;
-    height: 100%;
-    margin-right: 10%;
+    height: fit-content;
 }
 
 #fraseServ {
@@ -32,8 +18,8 @@ img {
 
 .card {
     background-color: transparent;
-    border-radius: 8px;
     width: 100%;
+    border-color: transparent;
 }
 
 .card-title {
@@ -42,23 +28,23 @@ img {
 }
 
 #playButtom {
-    width: 10%;
+    width: 100%;
 }
 
 #nome {
-    width: 50%;
+    width: 100%;
 }
 
 #album {
-    width: 50%;
+    width: 100%;
 }
 
 #artista {
-    width: 50%;
+    width: 100%;
 }
 
 #duration {
-    width: 50%;
+    width: 100%;
 }
 
 hr {
