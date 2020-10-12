@@ -11,10 +11,14 @@ import ColorThief from 'colorthief/dist/color-thief.min.js';
 export class MusicasComponent implements OnInit {
   mock: PlaylistsMock
   service: PlaylistClicadaService
+  isPlayingMusic: Boolean
+  audio: HTMLAudioElement
+  require: any
   
   constructor(service: PlaylistClicadaService) {
     this.mock = new PlaylistsMock
     this.service = service
+    this.isPlayingMusic = false
   }
 
   ngOnInit(): void {
@@ -32,9 +36,27 @@ export class MusicasComponent implements OnInit {
     };
   }
 
-  castIndex(index: Number){
-    let aux = index
+  playPause(id: number){
+    let button = <HTMLImageElement>document.getElementById("button ")
 
-    return Number(aux)
+    if(this.isPlayingMusic){
+      this.audio.pause
+
+      this.isPlayingMusic = false
+
+      button.src = "assets/images/icons/play-button.png"
+    }else{
+      console.log(this.mock.playlists[this.service.index].musicas[id].audio)
+      this.audio = new Audio(this.mock.playlists[this.service.index].musicas[id].audio);
+      //this.audio = new Audio("./assets/musics/Playlists/TrapNation/FabianMazur&Snavs-Arena[Trap].mp3");
+
+      this.audio.addEventListener("load", () => {
+        this.audio.play
+      })
+
+      this.isPlayingMusic = true
+
+      button.src = "assets/images/icons/pause-button.png"
+    }
   }
 }

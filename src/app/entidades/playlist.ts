@@ -3,8 +3,8 @@ import { Path, SourceFile } from 'typescript';
 import { Musica } from './musica';
 
 export class Playlist{
-    id: Number
-    nome: String
+    id: number
+    nome: string
     musicas :Musica[]
-    capa: String
+    capa: string
 }

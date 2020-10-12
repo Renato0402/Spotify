@@ -23,7 +23,7 @@ export class PlaylistsComponent implements OnInit {
     
   }
 
-  setMusicIndex(index: Number){
+  setMusicIndex(index: number){
     this.service.index = index
   }
 }

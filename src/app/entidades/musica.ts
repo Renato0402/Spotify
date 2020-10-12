@@ -1,10 +1,10 @@
 import { SourceFile } from 'typescript'
 
 export class Musica{
-    id: Number
-    nome: String
-    album: String
-    artista: String
-    duration: Number
-    audio: String
+    id: number
+    nome: string
+    album: string
+    artista: string
+    duration: number
+    audio: string
 }

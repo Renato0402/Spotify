@@ -3,9 +3,11 @@
     width: 100%;
     height: 100vh;
     background-color: rgba(12, 12, 12, 0.966);
+    align-content: center;
 }
 
-img {
+img,
+#button {
     width: 12%;
     height: 12%;
 }
@@ -13,6 +15,7 @@ img {
 .cards {
     width: 100%;
     height: fit-content;
+    align-content: center;
 }
 
 #fraseServ {
@@ -24,8 +27,18 @@ img {
 
 .card {
     background-color: transparent;
-    width: 100%;
+    width: 90%;
     border-color: transparent;
+    align-self: center;
+}
+
+.active,
+.elementos:hover {
+    background-color: #c8c8c857;
+}
+
+.d-flex {
+    padding-left: 110px;
 }
 
 .card-title {
@@ -34,7 +47,8 @@ img {
 }
 
 #playButtom {
-    width: 1%;
+    width: 20%;
+    height: 20%;
 }
 
 #nome {
@@ -51,11 +65,10 @@ img {
 
 #duration {
     width: 50%;
-    margin: 0px 0px 0px;
 }
 
 hr {
     margin: 5px;
     height: 1px;
-    background-image: linear-gradient(to right, transparent, rgb(12, 12, 12), transparent);
+    background-image: linear-gradient(to right, transparent, #cccccc, transparent);
 }
