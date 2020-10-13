@@ -1,3 +1,88 @@
-<div class="container">
-    <p>entrar works!</p>
+<div class="container-fluid">
+    <div id="content">
+        <div id="tituloForm">
+            Faça parte da maior plataforma de streaming do mundo!
+        </div>
+
+        <hr>
+
+        <form id="formulario">
+            <div class="row">
+                <div class="col">
+                    <label for="InputEmail1">Nome:</label>
+                    <input type="text" class="form-control" placeholder="Nome">
+                    <small id="nameHelp" class="form-text text-muted">Digite seu nome.</small>
+                </div>
+                <div class="col">
+                    <label for="InputEmail1">Sobrenome:</label>
+                    <input type="text" class="form-control" placeholder="Sobrenome">
+                    <small id="nameHelp" class="form-text text-muted">Digite seu sobrenome.</small>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="InputEmail1">Endereço de email:</label>
+                <input type="email" class="form-control" id="InputEmail1" aria-describedby="emailHelp" placeholder="Seu email">
+                <small id="emailHelp" class="form-text text-muted">Nunca vamos compartilhar seu email, com ninguém.</small>
+            </div>
+            <div class="form-group">
+                <label for="InputEmail1">Confirmar email:</label>
+                <input type="email" class="form-control" id="InputEmail1" aria-describedby="emailHelp" placeholder="Seu email">
+                <small id="emailHelp" class="form-text text-muted">Por favor, confirme seu email.</small>
+            </div>
+            <div class="form-group">
+                <label for="InputPassword1">Senha:</label>
+                <input type="password" class="form-control" id="InputPassword1" placeholder="Senha">
+            </div>
+            <div class="form-group">
+                <label for="InputConfirmPassword1">Confirmar Senha:</label>
+                <input type="password" class="form-control" id="InputPassword1" placeholder="Senha">
+            </div>
+            <div id="titulo">Data de Nascimento:</div>
+            <div class="form-row">
+                <div class="form-group col-md-4">
+                    <label for="inputDia">Dia</label>
+                    <input type="number" class="form-control" id="inputDia">
+                </div>
+                <div class="form-group col-md-4">
+                    <label for="inputMes">Mês</label>
+                    <select id="inputMes" class="form-control">
+                    <option selected>Escolher...</option>
+                    <option>Janeiro</option>
+                    <option>Fevereiro</option>
+                    <option>Março</option>
+                    <option>Abril</option>
+                    <option>Maio</option>
+                    <option>Junho</option>
+                    <option>Julho</option>
+                    <option>Agosto</option>
+                    <option>Setembro</option>
+                    <option>Outubro</option>
+                    <option>Novembro</option>
+                    <option>Dezembro</option>
+                </select>
+                </div>
+                <div class="form-group col-md-4">
+                    <label for="inputAno">Ano</label>
+                    <input type="number" class="form-control" id="inputAno">
+                </div>
+            </div>
+            <div id="titulo">Sexo:</div>
+            <div class="form-check form-check-inline col-md-1">
+                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="opcao1">
+                <label class="form-check-label" for="inlineRadio1">Masculino </label>
+            </div>
+            <div class="form-check form-check-inline col-md-1">
+                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="opcao2">
+                <label class="form-check-label" for="inlineRadio2">Feminino</label>
+            </div>
+            <div class="form-check form-check-inline col-md-1">
+                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio3" value="opcao3">
+                <label class="form-check-label" for="inlineRadio3">Outro</label>
+            </div>
+
+            <div>
+                <button id="botao" type="submit" class="btn btn-primary">Inscrever-se</button>
+            </div>
+        </form>
+    </div>
 </div>
