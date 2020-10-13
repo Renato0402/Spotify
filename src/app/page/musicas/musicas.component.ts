@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { PlaylistsMock } from 'src/app/mock/playlistsMock';
 import { PlaylistClicadaService } from 'src/app/services/playlist-clicada.service';
 import ColorThief from 'colorthief/dist/color-thief.min.js';
+import { Musica } from 'src/app/entidades/musica';
 
 @Component({
   selector: 'app-musicas',
@@ -14,6 +15,7 @@ export class MusicasComponent implements OnInit {
   isPlayingMusic: Boolean
   audio: HTMLAudioElement
   require: any
+  lastMusicId: number
   
   constructor(service: PlaylistClicadaService) {
     this.mock = new PlaylistsMock
@@ -37,26 +39,44 @@ export class MusicasComponent implements OnInit {
   }
 
   playPause(id: number){
-    let button = <HTMLImageElement>document.getElementById("button ")
+    let button = <HTMLImageElement>document.getElementById("button"+id)
 
-    if(this.isPlayingMusic){
-      this.audio.pause
+    if(this.isPlayingMusic && button.currentSrc == "http://localhost:4200/assets/images/icons/pause-button.png"){
+      let lastButton = <HTMLImageElement>document.getElementById("button"+ this.lastMusicId)
+      lastButton.src = "assets/images/icons/play-button.png"
+
+      this.audio.pause()
 
       this.isPlayingMusic = false
 
       button.src = "assets/images/icons/play-button.png"
     }else{
-      console.log(this.mock.playlists[this.service.index].musicas[id].audio)
-      this.audio = new Audio(this.mock.playlists[this.service.index].musicas[id].audio);
-      //this.audio = new Audio("./assets/musics/Playlists/TrapNation/FabianMazur&Snavs-Arena[Trap].mp3");
+      if(this.audio != undefined){
+        this.audio.pause()
 
-      this.audio.addEventListener("load", () => {
-        this.audio.play
-      })
+        let lastButton = <HTMLImageElement>document.getElementById("button"+ this.lastMusicId)
+        lastButton.src = "assets/images/icons/play-button.png"
+      }
+      
+      this.audio = new Audio(this.mock.playlists[this.service.index].musicas[id].audio);
+      this.audio.play()
+      this.audio.volume = 0.5
 
       this.isPlayingMusic = true
 
       button.src = "assets/images/icons/pause-button.png"
+
+      this.lastMusicId = id
     }
+  }
+
+  formatDuration(duration: number){
+    let formattedDuration = String(Math.round((duration / 60000) * 100) / 100).split(".")
+    
+    if(formattedDuration[1].length < 2){
+      formattedDuration[1] =  formattedDuration[1] + "0"
+    }
+
+    return String(formattedDuration).replace(",",":")
   }
 }

@@ -36,7 +36,7 @@
             <div class="elementos">
                 <div class="d-flex">
                     <div id="playButtom" class="p-2">
-                        <img id="button " src="assets\images\icons\play-button.png" (click)="playPause(musica.id)" alt="button">
+                        <img id="button{{musica.id}}" src="assets\images\icons\play-button.png" (click)="playPause(musica.id)" alt="button">
                     </div>
 
                     <div id="nome" class="p-2">
@@ -52,7 +52,7 @@
                     </div>
 
                     <div id="duration" class="p-2 justify-content-end">
-                        <h4 class="card-title ">{{musica.duration}}</h4>
+                        <h4 class="card-title ">{{formatDuration(musica.duration)}}</h4>
                     </div>
                 </div>
             </div>
