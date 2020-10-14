@@ -6,46 +6,50 @@
 
         <hr>
 
-        <form id="formulario">
+        <form id="formulario" data-toggle="validator" role="form">
             <div class="row">
                 <div class="col">
-                    <label for="InputEmail1">Nome:</label>
-                    <input type="text" class="form-control" placeholder="Nome">
+                    <label for="inputName">Nome:</label>
+                    <input id="inputName" type="text" class="form-control" placeholder="Nome" required>
                     <small id="nameHelp" class="form-text text-muted">Digite seu nome.</small>
                 </div>
                 <div class="col">
-                    <label for="InputEmail1">Sobrenome:</label>
-                    <input type="text" class="form-control" placeholder="Sobrenome">
-                    <small id="nameHelp" class="form-text text-muted">Digite seu sobrenome.</small>
+                    <label for="inputSobrenome">Sobrenome:</label>
+                    <input id="inputSobrenome" type="text" class="form-control" placeholder="Sobrenome" required>
+                    <small id="sobrenomeHelp" class="form-text text-muted">Digite seu sobrenome.</small>
+                    <div class="help-block with-errors"></div>
                 </div>
             </div>
             <div class="form-group">
-                <label for="InputEmail1">Endereço de email:</label>
-                <input type="email" class="form-control" id="InputEmail1" aria-describedby="emailHelp" placeholder="Seu email">
+                <label for="inputEmail">Endereço de email:</label>
+                <input id="inputEmail" type="email" class="form-control" aria-describedby="emailHelp" placeholder="Seu email" required>
                 <small id="emailHelp" class="form-text text-muted">Nunca vamos compartilhar seu email, com ninguém.</small>
+                <div class="help-block with-errors"></div>
             </div>
             <div class="form-group">
-                <label for="InputEmail1">Confirmar email:</label>
-                <input type="email" class="form-control" id="InputEmail1" aria-describedby="emailHelp" placeholder="Seu email">
-                <small id="emailHelp" class="form-text text-muted">Por favor, confirme seu email.</small>
+                <label for="inputConfirmEmail">Confirmar email:</label>
+                <input id="inputConfirmEmail" type="email" class="form-control" aria-describedby="emailHelp" placeholder="Seu email" data-match="#inputEmail" data-match-error="Os emails não coincidem!" required>
+                <small id="confirmEmailHelp" class="form-text text-muted">Por favor, confirme seu email.</small>
             </div>
             <div class="form-group">
-                <label for="InputPassword1">Senha:</label>
-                <input type="password" class="form-control" id="InputPassword1" placeholder="Senha">
+                <label for="inputpassword">Senha:</label>
+                <input id="inputpassword" type="password" class="form-control" placeholder="Senha" data-minlength="6" required>
+                <small id="passwordHelp" class="form-text text-muted">A senha deve ter no minimo seis digitos.</small>
+                <div class="help-block with-errors"></div>
             </div>
             <div class="form-group">
-                <label for="InputConfirmPassword1">Confirmar Senha:</label>
-                <input type="password" class="form-control" id="InputPassword1" placeholder="Senha">
+                <label for="inputConfirmPassword">Confirmar Senha:</label>
+                <input id="inputConfirmPassword" type="password" class="form-control" placeholder="Senha" data-minlength="6" data-match="#inputpassword" data-match-error="As senhas não coincidem!" required>
             </div>
             <div id="titulo">Data de Nascimento:</div>
             <div class="form-row">
                 <div class="form-group col-md-4">
                     <label for="inputDia">Dia</label>
-                    <input type="number" class="form-control" id="inputDia">
+                    <input type="number" class="form-control" id="inputDia" required>
                 </div>
                 <div class="form-group col-md-4">
                     <label for="inputMes">Mês</label>
-                    <select id="inputMes" class="form-control">
+                    <select id="inputMes" class="form-control" required>
                     <option selected>Escolher...</option>
                     <option>Janeiro</option>
                     <option>Fevereiro</option>
@@ -63,13 +67,13 @@
                 </div>
                 <div class="form-group col-md-4">
                     <label for="inputAno">Ano</label>
-                    <input type="number" class="form-control" id="inputAno">
+                    <input type="number" class="form-control" id="inputAno" required>
                 </div>
             </div>
             <div id="titulo">Sexo:</div>
             <div class="form-check form-check-inline col-md-1">
                 <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="opcao1">
-                <label class="form-check-label" for="inlineRadio1">Masculino </label>
+                <label class="form-check-label" for="inlineRadio1 ">Masculino</label>
             </div>
             <div class="form-check form-check-inline col-md-1">
                 <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="opcao2">
