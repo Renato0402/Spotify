@@ -15,7 +15,6 @@ export class MusicasComponent implements OnInit {
   service: PlaylistClicadaService
   isPlayingMusic: Boolean
   audio: HTMLAudioElement
-  require: any
   lastMusicId: number
 
   constructor(service: PlaylistClicadaService, private router: Router) {
