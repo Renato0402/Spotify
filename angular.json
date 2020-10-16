@@ -28,19 +28,9 @@
                             "src/styles.css"
                         ],
                         "scripts": [
-                            "./node_modules/node-vibrant/dist/vibrant.min.js",
                             "./node_modules/jquery/dist/jquery.min.js",
-<<<<<<< HEAD
-<<<<<<< HEAD
-                            "./node_modules/bootstrap/dist/js/bootstrap.min.js"
-=======
                             "./node_modules/bootstrap/dist/js/bootstrap.min.js",
                             "./node_modules/bootstrap-validator/dist/validator.min.js"
->>>>>>> d8ae262195169967099609e51de319a595ea7dc6
-=======
-                            "./node_modules/bootstrap/dist/js/bootstrap.min.js",
-                            "./node_modules/bootstrap-validator/dist/validator.min.js"
->>>>>>> 1c0bc176688aa35bc45d9e6c3ea989d86169111d
                         ]
                     },
                     "configurations": {
