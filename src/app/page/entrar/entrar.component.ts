@@ -16,14 +16,19 @@ export class EntrarComponent implements OnInit {
       "nome": new FormControl('', Validators.required),
       "sobrenome": new FormControl('', Validators.required),
       "email": new FormControl('', [Validators.required, Validators.email]),
-      "confirmEmail": new FormControl('', [Validators.required, Validators.email, emailValidator]),
+      "confirmEmail": new FormControl('', [Validators.required, Validators.email]),
       "senha": new FormControl('', Validators.required),
-      "confirmSenha": new FormControl('', Validators.required, senhaValidator),
+      "confirmSenha": new FormControl('', Validators.required),
+      "dia": new FormControl('', Validators.required),
+      "mes": new FormControl('', Validators.required),
+      "ano": new FormControl('', Validators.required),
+      "sexo": new FormControl('', Validators.required),
     });
   }
 
   submit() {
-
+    console.log(this.form)
+    this.form.markAsUntouched
   }
 
   get email() {
@@ -48,9 +53,15 @@ export const emailValidator: AsyncValidatorFn = (control: FormGroup): Promise<Va
   const email = control.get("email")
   const confirmEmail = control.get("confirmEmail")
 
-  return email && confirmEmail && email.value == confirmEmail.value ?
+  /*return email && confirmEmail && email.value === confirmEmail.value ?
     new Promise(() => { emailConfirmation: true }) :
-    new Promise(() => { emailConfirmation: false })
+    new Promise(() => { emailConfirmation: false })*/
+
+    if(email && confirmEmail && email.value === confirmEmail.value){
+      return new Promise(() => { true })
+    }else{
+      return new Promise(() => { false })
+    }
 }
 
 export const senhaValidator: AsyncValidatorFn = (control: FormGroup): Promise<ValidationErrors | null> => {

@@ -10,20 +10,29 @@
             <div class="row">
                 <div class="col">
                     <label for="inputName">Nome:</label>
-                    <input id="inputName" formControlName="nome" type="text" class="form-control" placeholder="Nome" required>
+                    <input id="inputName" formControlName="nome" type="text" class="form-control" placeholder="Nome" [class.is-invalid]="form.get('nome').invalid && form.get('nome').touched" required>
                     <small id="nameHelp" class="form-text text-muted">Digite seu nome.</small>
-
+                    <div *ngIf="(form.get('nome').invalid && form.get('nome').touched) || form.get('nome').dirty">
+                        <small *ngIf="form.get('nome').errors?.required" class="text-danger">É necessário informar seu nome.</small>
+                    </div>
                 </div>
                 <div class="col">
                     <label for="inputSobrenome">Sobrenome:</label>
-                    <input id="inputSobrenome" formControlName="sobrenome" type="text" class="form-control" placeholder="Sobrenome" required>
+                    <input id="inputSobrenome" formControlName="sobrenome" type="text" class="form-control" placeholder="Sobrenome" [class.is-invalid]="form.get('sobrenome').invalid && form.get('sobrenome').touched" required>
                     <small id="sobrenomeHelp" class="form-text text-muted">Digite seu sobrenome.</small>
+                    <div *ngIf="(form.get('sobrenome').invalid && form.get('sobrenome').touched) || form.get('sobrenome').dirty">
+                        <small *ngIf="form.get('sobrenome').errors?.required" class="text-danger">É necessário informar seu sobrenome.</small>
+                    </div>
                 </div>
             </div>
             <div class="form-group">
                 <label for="inputEmail">Endereço de email:</label>
                 <input id="inputEmail" formControlName="email" [class.is-invalid]="form.get('email').invalid && form.get('email').touched" type=" email" class="form-control" aria-describedby="emailHelp" placeholder="Seu email" required>
-                <small id="emailHelp" class="form-text text-muted ">Nunca vamos compartilhar seu email, com ninguém.</small>
+                <small id="emailHelp" class="form-text text-muted">Nunca vamos compartilhar seu email, com ninguém.</small>
+                <div *ngIf="email.invalid && email.touched">
+                    <small *ngIf=" email.errors?.pattern" class="text-danger">O email deve ser válido.</small>
+                </div>
+
                 <div *ngIf="(email.invalid && email.touched) || email.dirty">
                     <small *ngIf="email.errors?.required" class="text-danger">É necessário informar um email.</small>
                     <small *ngIf="email.errors?.pattern" class="text-danger">O email deve ser válido.</small>
@@ -31,16 +40,18 @@
             </div>
             <div class="form-group">
                 <label for="inputConfirmEmail">Confirmar email:</label>
-                <input id="inputConfirmEmail" formControlName="confirmEmail" [class.is-invalid]="form.get('confirmEmail').invalid && form.get('confirmEmail').touched" type="email" class="form-control" aria-describedby="emailHelp" placeholder="Seu email" required>
+                <input id="inputConfirmEmail" formControlName="confirmEmail" type="email" [class.is-invalid]="form.get( 'confirmEmail').invalid && form.get( 'confirmEmail').touched" class="form-control" aria-describedby="emailHelp" placeholder="Seu email" required>
                 <small id="confirmEmailHelp" class="form-text text-muted">Por favor, confirme seu email.</small>
 
                 <div *ngIf="(confirmEmail.invalid && confirmEmail.touched) || confirmEmail.dirty">
-                    <small *ngIf="confirmEmail.errors?.required" class="text-danger">É necessário confirmar seu email.</small>
-                    <small *ngIf="confirmEmail.errors?.pattern" class="text-danger">O email de confirmação deve ser válido.</small>
+                    <small *ngIf="confirmEmail.errors?.required" class="text-danger">É necessário confirmar seu
+                        email.</small>
+                    <small *ngIf="confirmEmail.errors?.pattern" class="text-danger">O email de confirmação deve ser
+                        válido.</small>
                     <div *ngIf="confirmEmail.errors?.emailValidator" class="text-danger">Os emails não coincidem!</div>
                 </div>
 
-                <!--<div *ngIf="form.errors ">
+                <!--<div *ngIf="form.errors">
                         Os emails não coincidem!
                     </div>-->
             </div>
@@ -49,17 +60,17 @@
                 <input id="inputpassword" formControlName="senha" [class.is-invalid]="form.get('senha').invalid && form.get('senha').touched" type="password" class="form-control" placeholder="Senha" minlength="6" required>
                 <small id="passwordHelp" class="form-text text-muted">A senha deve ter no minimo seis digitos.</small>
                 <div *ngIf="(senha.invalid && senha.touched) || senha.dirty">
-                    <small *ngIf="senha.errors?.required" class="text-danger">É necessário informar um email</small>
-                    <small *ngIf="senha.errors?.pattern" class="text-danger">O email deve ser válido</small>
+                    <small *ngIf="senha.errors?.required" class="text-danger">É necessário informar uma senha</small>
+                    <small *ngIf="senha.errors?.minlength" class="text-danger">A senha deve ter no minimo seis
+                        dígitos</small>
                 </div>
             </div>
-            <div class="form-group ">
+            <div class="form-group">
                 <label for="inputConfirmPassword">Confirmar Senha:</label>
-                <input id="inputConfirmPassword" formControlName="confirmSenha" [class.is-invalid]="form.get('confirmSenha').invalid && form.get('confirmSenha').touched" type="password" class="form-control" placeholder="Senha" data-match="#inputpassword" data-match-error="As senhas não coincidem!"
-                    minlength="6" required>
+                <input id="inputConfirmPassword" formControlName="confirmSenha" [class.is-invalid]="form.get( 'confirmSenha').invalid && form.get( 'confirmSenha').touched" type="password" class="form-control" placeholder="Senha" minlength="6" required>
                 <div *ngIf="(confirmSenha.invalid && confirmSenha.touched) || confirmSenha.dirty">
-                    <small *ngIf="confirmSenha.errors?.required" class="text-danger">É necessário confirmar seu email</small>
-                    <small *ngIf="confirmSenha.errors?.pattern" class="text-danger">O email de confirmação deve ser válido</small>
+                    <small *ngIf="confirmSenha.errors?.required" class="text-danger">É necessário confirmar sua
+                        senha</small>
                     <div *ngIf="confirmSenha.errors?.emailValidator" class="text-danger">As senhas não coincidem!</div>
                 </div>
             </div>
@@ -67,45 +78,44 @@
             <div class="form-row">
                 <div class="form-group col-md-4">
                     <label for="inputDia">Dia</label>
-                    <input type="number" class="form-control" id="inputDia" required>
+                    <input type="number" class="form-control" id="inputDia" formControlName="dia" [class.is-invalid]="form.get('dia').invalid && form.get('dia').touched" required>
                 </div>
                 <div class="form-group col-md-4">
                     <label for="inputMes">Mês</label>
-                    <select id="inputMes" class="custom-select" required>
-                    <option selected>Escolher...</option>
-                    <option>Janeiro</option>
-                    <option>Fevereiro</option>
-                    <option>Março</option>
-                    <option>Abril</option>
-                    <option>Maio</option>
-                    <option>Junho</option>
-                    <option>Julho</option>
-                    <option>Agosto</option>
-                    <option>Setembro</option>
-                    <option>Outubro</option>
-                    <option>Novembro</option>
-                    <option>Dezembro</option>
-                </select>
+                    <select id="inputMes" class="custom-select" formControlName="mes" [class.is-invalid]="form.get('mes').invalid && form.get( 'mes').touched" required>
+                        <option selected>Escolher...</option>
+                        <option>Janeiro</option>
+                        <option>Fevereiro</option>
+                        <option>Março</option>
+                        <option>Abril</option>
+                        <option>Maio</option>
+                        <option>Junho</option>
+                        <option>Julho</option>
+                        <option>Agosto</option>
+                        <option>Setembro</option>
+                        <option>Outubro</option>
+                        <option>Novembro</option>
+                        <option>Dezembro</option>
+                    </select>
                 </div>
-                <div class="form-group col-md-4 ">
-                    <label for="inputAno ">Ano</label>
-                    <input type="number " class="form-control" id="inputAno " required>
+                <div class="form-group col-md-4">
+                    <label for="inputAno">Ano</label>
+                    <input type="number" class="form-control" id="inputAno" formControlName="ano" [class.is-invalid]="form.get('ano').invalid && form.get('ano').touched" required>
                 </div>
             </div>
-            <div id="titulo">Sexo:</div>
-            <div class="form-check form-check-inline col-md-1" aria-required="true">
-                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="opcao1">
-                <label class="form-check-label" for="inlineRadio1 ">Masculino</label>
-
-                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="opcao2">
-                <label class="form-check-label" for="inlineRadio2 ">Feminino</label>
-
-                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio3" value="opcao3">
-                <label class="form-check-label" for="inlineRadio3">Outro</label>
+            <div class="form-row">
+                <div class="form-group col-md-4">
+                    <label for="inputSexo">Sexo</label>
+                    <select id="inputSexo" class="custom-select" formControlName="sexo" [class.is-invalid]="form.get('sexo').invalid && form.get('sexo').touched" required>
+                        <option selected>Escolher...</option>
+                        <option>Masculino</option>
+                        <option>Feminino</option>
+                        <option>Outro</option>
+                    </select>
+                </div>
             </div>
-
             <div>
-                <button id="botao" type="submit" class="btn btn-primary">Inscrever-se</button>
+                <button id="botao" type="submit" class="btn btn-primary" [disabled]="form.invalid">Inscrever-se</button>
             </div>
         </form>
     </div>
