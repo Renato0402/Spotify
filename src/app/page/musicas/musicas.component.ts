@@ -16,6 +16,7 @@ export class MusicasComponent implements OnInit {
   isPlayingMusic: Boolean
   audio: HTMLAudioElement
   lastMusicId: number
+  isOnPage = true
 
   constructor(service: PlaylistClicadaService, private router: Router) {
     this.mock = new PlaylistsMock
@@ -27,20 +28,10 @@ export class MusicasComponent implements OnInit {
     this.coverBackground()
 
     this.router.events.subscribe((event) => {
+      if (event instanceof NavigationEnd && event.url != "/musicas" && this.isOnPage) {
+        this.playPause(this.lastMusicId)
 
-      if (event instanceof NavigationStart) {
-        //console.log("entrou")
-      }
-
-      if (event instanceof NavigationEnd) {
-        //playPause(this.lastMusicId)
-      }
-
-      if (event instanceof NavigationError) {
-        // Hide loading indicator
-
-        // Present error to user
-        console.log(event.error);
+        this.isOnPage = false
       }
     });
   }
@@ -59,32 +50,33 @@ export class MusicasComponent implements OnInit {
   playPause(id: number) {
     let button = <HTMLImageElement>document.getElementById("button" + id)
 
-    if (this.isPlayingMusic && button.currentSrc == "http://localhost:4200/assets/images/icons/pause-button.png") {
-      let lastButton = <HTMLImageElement>document.getElementById("button" + this.lastMusicId)
-      lastButton.src = "assets/images/icons/play-button.png"
-
-      this.audio.pause()
-
-      this.isPlayingMusic = false
-
-      button.src = "assets/images/icons/play-button.png"
-    } else {
-      if (this.audio != undefined) {
+    if (button != null) {
+      if (this.isPlayingMusic && button.currentSrc == "http://localhost:4200/assets/images/icons/pause-button.png") {
         this.audio.pause()
 
-        let lastButton = <HTMLImageElement>document.getElementById("button" + this.lastMusicId)
-        lastButton.src = "assets/images/icons/play-button.png"
+        this.isPlayingMusic = false
+
+        button.src = "assets/images/icons/play-button.png"
+      } else {
+        if (this.audio != undefined) {
+          this.audio.pause()
+
+          let lastButton = <HTMLImageElement>document.getElementById("button" + this.lastMusicId)
+          lastButton.src = "assets/images/icons/play-button.png"
+        }
+
+          this.audio = new Audio(this.mock.playlists[this.service.index].musicas[id].audio);
+          this.audio.play()
+          this.audio.volume = 0.5
+
+          this.isPlayingMusic = true
+
+          button.src = "assets/images/icons/pause-button.png"
+
+          this.lastMusicId = id
       }
-
-      this.audio = new Audio(this.mock.playlists[this.service.index].musicas[id].audio);
-      this.audio.play()
-      this.audio.volume = 0.5
-
-      this.isPlayingMusic = true
-
-      button.src = "assets/images/icons/pause-button.png"
-
-      this.lastMusicId = id
+    }else{
+      this.audio.pause()
     }
   }
 
