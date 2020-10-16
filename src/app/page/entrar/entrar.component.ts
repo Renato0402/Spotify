@@ -61,7 +61,3 @@ export const senhaValidator: AsyncValidatorFn = (control: FormGroup): Promise<Va
     new Promise(() => { senhaConfirmation: true }) :
     new Promise(() => { senhaConfirmation: false })
 }
-
-/*interface AsyncValidatorFn {
-  (c: AbstractControl): Promise<ValidationErrors|null>|Observable<ValidationErrors|null>
-}*/
