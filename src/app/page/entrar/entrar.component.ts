@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AbstractControl, AsyncValidator, AsyncValidatorFn, FormBuilder, FormControl, FormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
+import { AbstractControl, AsyncValidator, AsyncValidatorFn, EmailValidator, FormBuilder, FormControl, FormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-entrar',
@@ -8,6 +8,7 @@ import { AbstractControl, AsyncValidator, AsyncValidatorFn, FormBuilder, FormCon
 })
 export class EntrarComponent implements OnInit {
   form: FormGroup
+  Data: number = Date.now()
 
   constructor() { }
 
@@ -15,10 +16,10 @@ export class EntrarComponent implements OnInit {
     this.form = new FormGroup({
       "nome": new FormControl('', Validators.required),
       "sobrenome": new FormControl('', Validators.required),
-      "email": new FormControl('', [Validators.required, Validators.email]),
-      "confirmEmail": new FormControl('', [Validators.required, Validators.email]),
+      "email": new FormControl('', [Validators.required, Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")]),
+      "confirmEmail": new FormControl('', [Validators.required, this.emailMatchValidation()]),
       "senha": new FormControl('', Validators.required),
-      "confirmSenha": new FormControl('', Validators.required),
+      "confirmSenha": new FormControl('', Validators.required, this.senhaMatchValidation()),
       "dia": new FormControl('', Validators.required),
       "mes": new FormControl('', Validators.required),
       "ano": new FormControl('', Validators.required),
@@ -28,7 +29,15 @@ export class EntrarComponent implements OnInit {
 
   submit() {
     console.log(this.form)
-    this.form.markAsUntouched
+    this.form.reset()
+  }
+
+  get nome() {
+    return this.form.get('nome')
+  }
+
+  get sobrenome() {
+    return this.form.get('sobrenome')
   }
 
   get email() {
@@ -47,28 +56,41 @@ export class EntrarComponent implements OnInit {
     return this.form.get('confirmSenha')
   }
 
+  get dia() {
+    return this.form.get('dia')
+  }
+
+  get mes() {
+    return this.form.get('mes')
+  }
+
+  get ano() {
+    return this.form.get('ano')
+  }
+
+  get sexo() {
+    return this.form.get('sexo')
+  }
 }
 
-export const emailValidator: AsyncValidatorFn = (control: FormGroup): Promise<ValidationErrors | null> => {
-  const email = control.get("email")
-  const confirmEmail = control.get("confirmEmail")
+/*export const exemailMatchValidation(): ValidatorFn {
+  const email = this.form.get('email')
+  const confirmEmail = this.form.get('confirmEmail')
 
-  /*return email && confirmEmail && email.value === confirmEmail.value ?
-    new Promise(() => { emailConfirmation: true }) :
-    new Promise(() => { emailConfirmation: false })*/
-
-    if(email && confirmEmail && email.value === confirmEmail.value){
-      return new Promise(() => { true })
-    }else{
-      return new Promise(() => { false })
-    }
+  if(email.value !== confirmEmail.value){
+    confirmEmail.setErrors({emailMatchValidation: true})
+  }else{
+    confirmEmail.setErrors(null)
+  }
 }
 
-export const senhaValidator: AsyncValidatorFn = (control: FormGroup): Promise<ValidationErrors | null> => {
-  const senha = control.get("email")
-  const confirmSenha = control.get("confirmEmail")
+senhaMatchValidation(): ValidatorFn {
+  const senha = this.form.get('senha')
+  const confirmSenha = this.form.get('confirmSenha')
 
-  return senha && confirmSenha && senha.value === confirmSenha.value ?
-    new Promise(() => { senhaConfirmation: true }) :
-    new Promise(() => { senhaConfirmation: false })
-}
+  if(senha.value !== confirmSenha.value){
+    return{senhaMatchValidation: true})
+  }else{
+    confirmSenha.setErrors(null)
+  }
+}*/
