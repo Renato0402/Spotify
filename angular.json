@@ -30,7 +30,12 @@
                         "scripts": [
                             "./node_modules/node-vibrant/dist/vibrant.min.js",
                             "./node_modules/jquery/dist/jquery.min.js",
+<<<<<<< HEAD
                             "./node_modules/bootstrap/dist/js/bootstrap.min.js"
+=======
+                            "./node_modules/bootstrap/dist/js/bootstrap.min.js",
+                            "./node_modules/bootstrap-validator/dist/validator.min.js"
+>>>>>>> d8ae262195169967099609e51de319a595ea7dc6
                         ]
                     },
                     "configurations": {
