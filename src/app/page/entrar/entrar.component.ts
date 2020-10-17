@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { AbstractControl, AsyncValidator, AsyncValidatorFn, EmailValidator, FormBuilder, FormControl, FormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, ValidatorFn, Validators } from '@angular/forms';
+import { Usuario } from 'src/app/entidades/usuario';
+import { UsersMock } from 'src/app/mock/usersMock';
 
 @Component({
   selector: 'app-entrar',
@@ -9,27 +11,49 @@ import { AbstractControl, AsyncValidator, AsyncValidatorFn, EmailValidator, Form
 export class EntrarComponent implements OnInit {
   form: FormGroup
   Data: number = Date.now()
+  mockUsers: UsersMock;
 
-  constructor() { }
+
+  constructor(private formBuilder: FormBuilder) {
+    this.mockUsers = new UsersMock
+  }
 
   ngOnInit(): void {
-    this.form = new FormGroup({
+    this.form = this.formBuilder.group({
       "nome": new FormControl('', Validators.required),
       "sobrenome": new FormControl('', Validators.required),
       "email": new FormControl('', [Validators.required, Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")]),
-      "confirmEmail": new FormControl('', [Validators.required, this.emailMatchValidation()]),
+      "confirmEmail": new FormControl('', Validators.required),
       "senha": new FormControl('', Validators.required),
-      "confirmSenha": new FormControl('', Validators.required, this.senhaMatchValidation()),
+      "confirmSenha": new FormControl('', Validators.required),
       "dia": new FormControl('', Validators.required),
       "mes": new FormControl('', Validators.required),
       "ano": new FormControl('', Validators.required),
       "sexo": new FormControl('', Validators.required),
+    }, {
+      validator: [emailMatchValidation("email", "confirmEmail"), senhaMatchValidation("senha", "confirmSenha")]
     });
+
+    /*this.form.controls.valueChanges.subscribe(() => {
+      this.form.updateValueAndValidity();
+    });
+
+    this.form.controls.senha.valueChanges.subscribe(() => {
+      this.form.updateValueAndValidity();
+    });*/
   }
+  /*senhaMatchValidation(arg0: string): ValidatorFn {
+    throw new Error('Method not implemented.');
+  }*/
 
   submit() {
-    console.log(this.form)
-    this.form.reset()
+
+    var user: Usuario = { nome: this.nome.value, sobrenome: this.sobrenome.value, email: this.email.value, senha: this.senha.value, dia: this.dia.value, mes: this.mes.value, ano: this.ano.value, sexo: this.sexo.value };
+
+    this.mockUsers.users.push(user);
+
+    this.mockUsers.addLocal();
+
   }
 
   get nome() {
@@ -73,24 +97,38 @@ export class EntrarComponent implements OnInit {
   }
 }
 
-/*export const exemailMatchValidation(): ValidatorFn {
-  const email = this.form.get('email')
-  const confirmEmail = this.form.get('confirmEmail')
+export function emailMatchValidation(email: string, confirmEmail: string) {
+  return (formGroup: FormGroup) => {
+    const controlToMatch = formGroup.controls[email];
+    const control = formGroup.controls[confirmEmail];
 
-  if(email.value !== confirmEmail.value){
-    confirmEmail.setErrors({emailMatchValidation: true})
-  }else{
-    confirmEmail.setErrors(null)
+    if (control.errors && !control.errors.mustMatch) {
+      // return if another validator has already found an error on the matchingControl
+      return;
+    }
+
+    if (controlToMatch.value !== control.value) {
+      control.setErrors({ mustMatch: true });
+    } else {
+      control.setErrors(null);
+    }
   }
 }
 
-senhaMatchValidation(): ValidatorFn {
-  const senha = this.form.get('senha')
-  const confirmSenha = this.form.get('confirmSenha')
+export function senhaMatchValidation(senha: string, confirmSenha: string) {
+  return (formGroup: FormGroup) => {
+    const controlToMatch = formGroup.controls[senha];
+    const control = formGroup.controls[confirmSenha];
 
-  if(senha.value !== confirmSenha.value){
-    return{senhaMatchValidation: true})
-  }else{
-    confirmSenha.setErrors(null)
+    if (control.errors && !control.errors.mustMatch) {
+      // return if another validator has already found an error on the matchingControl
+      return;
+    }
+    
+    if (controlToMatch.value !== control.value) {
+      control.setErrors({ mustMatch: true });
+    } else {
+      control.setErrors(null);
+    }
   }
-}*/
+}

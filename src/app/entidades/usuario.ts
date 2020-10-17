@@ -1,7 +1,10 @@
-export class usuario {
+export class Usuario {
     nome: string
     sobrenome: string
     email: string
     senha: string
-    dataNascimento: number
+    dia:Number
+    mes:Number
+    ano:Number
+    sexo:string
 }
