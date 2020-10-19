@@ -1,28 +1,39 @@
-import { Component, OnInit } from '@angular/core'
-import { Playlist } from '../entidades/playlist'
 import { Usuario } from '../entidades/usuario'
 
 export class UsersMock {
     users: Usuario[]
 
     constructor() {
-        this.users = []
+        this.users = JSON.parse(localStorage.getItem("users"))
+
+        if (this.users == null) {
+            this.users = [];
+        }
+    }
+
+    checkIfUserExists(email: String) {
+        for (let i of this.users) {
+            if (i != undefined) {
+                if (i.email == email) {
+                    return true
+                }
+            }
+        }
+
+        return false
+    }
+
+    addUser(user: Usuario) {
+        if(this.checkIfUserExists(user.email)){
+            return false
+        }else{
+            this.users.push(user)
+
+            this.addLocal()
+        }
     }
 
     addLocal() {
-        var aux = JSON.parse(localStorage.getItem("users"));
-
-        if (aux == null) {
-            aux = [];
-        }
-
-        // A TERMINAR
-        for (let user of this.users) {
-            /*if (aux.get(user) == null) {
-                aux.push(user);
-            }*/
-        }
-
-        localStorage.setItem("users", JSON.stringify(aux));
+        localStorage.setItem("users", JSON.stringify(this.users));
     }
 }
