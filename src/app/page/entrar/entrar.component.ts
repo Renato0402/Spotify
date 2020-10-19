@@ -31,7 +31,7 @@ export class EntrarComponent implements OnInit {
       "ano": new FormControl('', Validators.required),
       "sexo": new FormControl('', Validators.required),
     }, {
-      validator: [emailMatchValidation("email", "confirmEmail"), senhaMatchValidation("senha", "confirmSenha")]
+      validator: [this.emailMatchValidation("email", "confirmEmail"), this.senhaMatchValidation("senha", "confirmSenha"), this.userExistsValidation("email")]
     });
 
     /*this.form.controls.valueChanges.subscribe(() => {
@@ -50,10 +50,11 @@ export class EntrarComponent implements OnInit {
 
     var user: Usuario = { nome: this.nome.value, sobrenome: this.sobrenome.value, email: this.email.value, senha: this.senha.value, dia: this.dia.value, mes: this.mes.value, ano: this.ano.value, sexo: this.sexo.value };
 
-    this.mockUsers.users.push(user);
+    this.mockUsers.addUser(user);
 
     this.mockUsers.addLocal();
 
+    this.form.reset()
   }
 
   get nome() {
@@ -95,40 +96,57 @@ export class EntrarComponent implements OnInit {
   get sexo() {
     return this.form.get('sexo')
   }
-}
 
-export function emailMatchValidation(email: string, confirmEmail: string) {
-  return (formGroup: FormGroup) => {
-    const controlToMatch = formGroup.controls[email];
-    const control = formGroup.controls[confirmEmail];
-
-    if (control.errors && !control.errors.mustMatch) {
-      // return if another validator has already found an error on the matchingControl
-      return;
-    }
-
-    if (controlToMatch.value !== control.value) {
-      control.setErrors({ mustMatch: true });
-    } else {
-      control.setErrors(null);
+  emailMatchValidation(email: string, confirmEmail: string) {
+    return (formGroup: FormGroup) => {
+      const controlToMatch = formGroup.controls[email];
+      const control = formGroup.controls[confirmEmail];
+  
+      if (control.errors && !control.errors.mustMatch) {
+        // return if another validator has already found an error on the matchingControl
+        return;
+      }
+  
+      if (controlToMatch.value !== control.value) {
+        control.setErrors({ emailMatchValidationError: true });
+      } else {
+        control.setErrors(null);
+      }
     }
   }
-}
 
-export function senhaMatchValidation(senha: string, confirmSenha: string) {
-  return (formGroup: FormGroup) => {
-    const controlToMatch = formGroup.controls[senha];
-    const control = formGroup.controls[confirmSenha];
-
-    if (control.errors && !control.errors.mustMatch) {
-      // return if another validator has already found an error on the matchingControl
-      return;
+  userExistsValidation(email: string) {
+    return (formGroup: FormGroup) => {
+      const control = formGroup.controls[email];
+  
+      if (control.errors && !control.errors.mustMatch) {
+        // return if another validator has already found an error on the matchingControl
+        return;
+      }
+  
+      if (this.mockUsers.checkIfUserExists(control.value)) {
+        control.setErrors({ userExistsValidationError: true });
+      } else {
+        control.setErrors(null);
+      }
     }
-    
-    if (controlToMatch.value !== control.value) {
-      control.setErrors({ mustMatch: true });
-    } else {
-      control.setErrors(null);
+  }
+
+  senhaMatchValidation(senha: string, confirmSenha: string) {
+    return (formGroup: FormGroup) => {
+      const controlToMatch = formGroup.controls[senha];
+      const control = formGroup.controls[confirmSenha];
+  
+      if (control.errors && !control.errors.mustMatch) {
+        // return if another validator has already found an error on the matchingControl
+        return;
+      }
+      
+      if (controlToMatch.value !== control.value) {
+        control.setErrors({ senhaMatchValidationError: true });
+      } else {
+        control.setErrors(null);
+      }
     }
   }
 }
