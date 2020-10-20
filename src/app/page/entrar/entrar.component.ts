@@ -36,12 +36,9 @@ export class EntrarComponent implements OnInit {
   }
 
   submit() {
-
     var user: Usuario = { nome: this.nome.value, sobrenome: this.sobrenome.value, email: this.email.value, senha: this.senha.value, dia: this.dia.value, mes: this.mes.value, ano: this.ano.value, sexo: this.sexo.value };
 
     this.mockUsers.addUser(user);
-
-    this.mockUsers.addLocal();
 
     this.form.reset()
   }
@@ -92,7 +89,6 @@ export class EntrarComponent implements OnInit {
       const control = formGroup.controls[confirmEmail];
   
       if (control.errors && !control.errors.mustMatch) {
-        // return if another validator has already found an error on the matchingControl
         return;
       }
   
@@ -109,7 +105,6 @@ export class EntrarComponent implements OnInit {
       const control = formGroup.controls[email];
   
       if (control.errors && !control.errors.mustMatch) {
-        // return if another validator has already found an error on the matchingControl
         return;
       }
   
@@ -127,7 +122,6 @@ export class EntrarComponent implements OnInit {
       const control = formGroup.controls[confirmSenha];
   
       if (control.errors && !control.errors.mustMatch) {
-        // return if another validator has already found an error on the matchingControl
         return;
       }
       
