@@ -33,18 +33,7 @@ export class EntrarComponent implements OnInit {
     }, {
       validator: [this.emailMatchValidation("email", "confirmEmail"), this.senhaMatchValidation("senha", "confirmSenha"), this.userExistsValidation("email")]
     });
-
-    /*this.form.controls.valueChanges.subscribe(() => {
-      this.form.updateValueAndValidity();
-    });
-
-    this.form.controls.senha.valueChanges.subscribe(() => {
-      this.form.updateValueAndValidity();
-    });*/
   }
-  /*senhaMatchValidation(arg0: string): ValidatorFn {
-    throw new Error('Method not implemented.');
-  }*/
 
   submit() {
 
