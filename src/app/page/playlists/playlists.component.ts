@@ -21,4 +21,6 @@ export class PlaylistsComponent implements OnInit {
   setMusicIndex(index: number){
     this.service.index = index
   }
+
+  get()
 }
