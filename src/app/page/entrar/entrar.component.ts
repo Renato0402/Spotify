@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, ValidatorFn, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Usuario } from 'src/app/entidades/usuario';
-import { UsersMock } from 'src/app/mock/usersMock';
+import { UsersService } from 'src/app/services/users.service';
 
 @Component({
   selector: 'app-entrar',
@@ -11,11 +11,10 @@ import { UsersMock } from 'src/app/mock/usersMock';
 export class EntrarComponent implements OnInit {
   form: FormGroup
   Data: number = Date.now()
-  mockUsers: UsersMock;
+  usersService: UsersService
 
-
-  constructor(private formBuilder: FormBuilder) {
-    this.mockUsers = new UsersMock
+  constructor(private formBuilder: FormBuilder, usersService: UsersService) {
+    this.usersService = usersService
   }
 
   ngOnInit(): void {
@@ -38,7 +37,7 @@ export class EntrarComponent implements OnInit {
   submit() {
     var user: Usuario = { nome: this.nome.value, sobrenome: this.sobrenome.value, email: this.email.value, senha: this.senha.value, dia: this.dia.value, mes: this.mes.value, ano: this.ano.value, sexo: this.sexo.value };
 
-    this.mockUsers.addUser(user);
+    this.usersService.addUser(user);
 
     this.form.reset()
   }
@@ -108,7 +107,7 @@ export class EntrarComponent implements OnInit {
         return;
       }
   
-      if (this.mockUsers.checkIfUserExists(control.value)) {
+      if (this.usersService.checkIfUserExists(control.value)) {
         control.setErrors({ userExistsValidationError: true });
       } else {
         control.setErrors(null);

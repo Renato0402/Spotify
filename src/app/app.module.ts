@@ -7,7 +7,6 @@ import { AppComponent } from './app.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AjudaComponent } from './page/ajuda/ajuda.component';
-import { YouTubePlayerModule } from "@angular/youtube-player";
 import { HomeComponent } from './page/home/home.component';
 import { FooterComponent } from './footer/footer.component';
 import { PlaylistsComponent } from './page/playlists/playlists.component';
@@ -29,7 +28,6 @@ import { MusicasComponent } from './page/musicas/musicas.component';
     BrowserModule,
     AppRoutingModule,
     NgbModule,
-    YouTubePlayerModule,
     ReactiveFormsModule
   ],
   providers: [],

@@ -1,9 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Musica } from 'src/app/entidades/musica';
-import { Playlist } from 'src/app/entidades/playlist';
-import { PlaylistsMock } from 'src/app/mock/playlistsMock';
 import { PlaylistClicadaService } from 'src/app/services/playlist-clicada.service';
-import { servicesVersion } from 'typescript';
+import { PlaylistsService } from 'src/app/services/playlists.service';
 
 @Component({
   selector: 'app-playlists',
@@ -11,17 +8,15 @@ import { servicesVersion } from 'typescript';
   styleUrls: ['./playlists.component.css']
 })
 export class PlaylistsComponent implements OnInit {
-  mock: PlaylistsMock
+  playlistsService: PlaylistsService
   service: PlaylistClicadaService
 
-  constructor(service: PlaylistClicadaService) {
-    this.mock = new PlaylistsMock
+  constructor(service: PlaylistClicadaService, playlistsService: PlaylistsService) {
+    this.playlistsService = playlistsService
     this.service = service
   }
 
-  ngOnInit(): void {
-    
-  }
+  ngOnInit(): void {}
 
   setMusicIndex(index: number){
     this.service.index = index

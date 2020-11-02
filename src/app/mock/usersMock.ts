@@ -11,29 +11,5 @@ export class UsersMock {
         }
     }
 
-    checkIfUserExists(email: String) {
-        for (let i of this.users) {
-            if (i != undefined) {
-                if (i.email == email) {
-                    return true
-                }
-            }
-        }
-
-        return false
-    }
-
-    addUser(user: Usuario) {
-        if(this.checkIfUserExists(user.email)){
-            return false
-        }else{
-            this.users.push(user)
-
-            this.addLocal()
-        }
-    }
-
-    addLocal() {
-        localStorage.setItem("users", JSON.stringify(this.users));
-    }
+    
 }

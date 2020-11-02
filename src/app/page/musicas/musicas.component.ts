@@ -4,6 +4,7 @@ import { PlaylistClicadaService } from 'src/app/services/playlist-clicada.servic
 import ColorThief from 'colorthief/dist/color-thief.min.js';
 import { Musica } from 'src/app/entidades/musica';
 import { Router, NavigationStart, NavigationEnd, NavigationError } from '@angular/router';
+import { PlaylistsService } from 'src/app/services/playlists.service';
 
 @Component({
   selector: 'app-musicas',
@@ -11,15 +12,15 @@ import { Router, NavigationStart, NavigationEnd, NavigationError } from '@angula
   styleUrls: ['./musicas.component.css']
 })
 export class MusicasComponent implements OnInit {
-  mock: PlaylistsMock
   service: PlaylistClicadaService
+  playlistsService: PlaylistsService
   isPlayingMusic: Boolean
   audio: HTMLAudioElement
   lastMusicId: number
   isOnPage = true
 
-  constructor(service: PlaylistClicadaService, private router: Router) {
-    this.mock = new PlaylistsMock
+  constructor(service: PlaylistClicadaService, playlistsService: PlaylistsService, private router: Router) {
+    this.playlistsService = playlistsService
     this.service = service
     this.isPlayingMusic = false
   }
@@ -65,7 +66,7 @@ export class MusicasComponent implements OnInit {
           lastButton.src = "assets/images/icons/play-button.png"
         }
 
-          this.audio = new Audio(this.mock.playlists[this.service.index].musicas[id].audio);
+          this.audio = new Audio(this.playlistsService.playlistsMock.playlists[this.service.index].musicas[id].audio);
           this.audio.play()
           this.audio.volume = 0.5
 
