@@ -1,41 +1,40 @@
 <div class="container-fluid">
     <div id="content">
         <div id="tituloForm">
-            Faça parte da maior plataforma de streaming do mundo!
+            Entre e aproveite
         </div>
 
         <hr>
 
         <form [formGroup]="form" (ngSubmit)="submit()" novalidate>
-            <div class="row">
-                <div class="form-group">
-                    <label for="inputEmail">Endereço de email:</label>
-                    <input id="inputEmail" formControlName="email" [class.is-invalid]="email.invalid && email.touched" type=" email" class="form-control" aria-describedby="emailHelp" placeholder="Seu email">
-                    <small id="emailHelp" class="form-text text-muted">Nunca vamos compartilhar seu email, com
-                        ninguém.</small>
-                    <div *ngIf="email.invalid && email.touched">
-                        <small *ngIf="email.errors?.required" class="text-danger">É necessário informar um
-                            email.</small>
-                        <small *ngIf="email.errors?.pattern" class="text-danger">O email deve ser válido.</small>
-                        <small *ngIf="email.errors?.userExistsValidationError" class="text-danger">Esse email não está
-                            cadastrado.</small>
-                    </div>
+            <div class="form-group">
+                <label for="inputEmail">Endereço de email:</label>
+                <input id="inputEmail" formControlName="email" [class.is-invalid]="email.invalid && email.touched" type=" email" class="form-control" aria-describedby="emailHelp" placeholder="Seu email">
+                <small id="emailHelp" class="form-text text-muted">Nunca vamos compartilhar seu email, com ninguém.</small>
+                <div *ngIf="email.invalid && email.touched">
+                    <small *ngIf="email.errors?.required" class="text-danger">É necessário informar um email.</small>
+                    <small *ngIf="email.errors?.pattern" class="text-danger">O email deve ser válido.</small>
+                    <small *ngIf="email.errors?.userExistsValidationError" class="text-danger">Esse email não está cadastrado.</small>
                 </div>
-                <div class="form-group">
-                    <label for="inputpassword">Senha:</label>
-                    <input id="inputpassword" formControlName="senha" [class.is-invalid]="senha.invalid && senha.touched" type="password" class="form-control" placeholder="Senha" minlength="6">
-                    <small id="passwordHelp" class="form-text text-muted">A senha deve ter no minimo seis
-                        digitos.</small>
-                    <div *ngIf="senha.invalid && senha.touched">
-                        <small *ngIf="senha.errors?.required" class="text-danger">É necessário informar uma
-                            senha</small>
-                        <small *ngIf="senha.errors?.minlength" class="text-danger">A senha deve ter no minimo seis
-                            dígitos</small>
-                    </div>
+            </div>
+            <div class="form-group">
+                <label for="inputpassword">Senha:</label>
+                <input id="inputpassword" formControlName="senha" [class.is-invalid]="senha.invalid && senha.touched" type="password" class="form-control" placeholder="Senha" minlength="6">
+                <small id="passwordHelp" class="form-text text-muted">A senha deve ter no minimo seis digitos.</small>
+                <div *ngIf="senha.invalid && senha.touched">
+                    <small *ngIf="senha.errors?.required" class="text-danger">É necessário informar uma senha</small>
+                    <small *ngIf="senha.errors?.minlength" class="text-danger">A senha deve ter no minimo seis dígitos</small>
                 </div>
-                <div class="form-row">
-                    <button id="botao" type="submit" class="btn btn-primary" [disabled]="form.invalid">Inscrever-se</button>
-                </div>
+            </div>
+            <div>
+                <p>Ainda não tem uma conta?
+                    <a [routerLink]="['/cadastro']" [queryParams]="{debug: true}" fragment="education">
+                        Realizar cadastro</a>
+                </p>
+
+            </div>
+            <div class="form-row">
+                <button id="botao" type="submit" class="btn btn-primary" [disabled]="form.invalid">Entrar</button>
             </div>
         </form>
     </div>

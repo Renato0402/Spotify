@@ -1,4 +1,8 @@
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
+import { Playlist } from '../entidades/playlist';
 import { Usuario } from '../entidades/usuario';
 import { UsersMock } from '../mock/usersMock';
 
@@ -6,35 +10,22 @@ import { UsersMock } from '../mock/usersMock';
   providedIn: 'root'
 })
 export class UsersService {
-  usersMock
+  url;
 
-  constructor(usersMock: UsersMock) {
-    this.usersMock = usersMock 
+  constructor(private httpClient: HttpClient) {
+    this.url = "http://localhost:3000/users"
   }
 
-  checkIfUserExists(email: String) {
-    for (let i of this.usersMock.users) {
-      if (i != undefined) {
-        if (i.email == email) {
-          return true
-        }
-      }
-    }
-
-    return false
+  httpOptions = {
+    headers: new HttpHeaders({ 'Content-Type': 'application/json' })
   }
 
-  addUser(user: Usuario) {
-    if (this.checkIfUserExists(user.email)) {
-      return false
-    } else {
-      this.usersMock.users.push(user)
-
-      this.addLocal()
-    }
+  getUserByEmail(email: string): Observable<Usuario[]> {
+    return this.httpClient.get<Usuario[]>(this.url).pipe(map(items =>
+      items.filter(item => item.email == email)))
   }
 
-  addLocal() {
-    localStorage.setItem("users", JSON.stringify(this.usersMock.users));
+  addUser(user: Usuario): Observable<Usuario> {
+    return this.httpClient.post<Usuario>(this.url, JSON.stringify(user), this.httpOptions)
   }
 }

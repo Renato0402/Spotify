@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { Usuario } from 'src/app/entidades/usuario';
 import { UsersService } from 'src/app/services/users.service';
+import { v4 as uuidv4 } from 'uuid';
 
 @Component({
   selector: 'app-cadastro',
@@ -12,7 +14,7 @@ export class CadastroComponent implements OnInit {
   form: FormGroup
   Data: number = Date.now()
 
-  constructor(private formBuilder: FormBuilder, private usersService: UsersService) {
+  constructor(private formBuilder: FormBuilder, private usersService: UsersService, private router: Router) {
   }
 
   ngOnInit(): void {
@@ -33,11 +35,12 @@ export class CadastroComponent implements OnInit {
   }
 
   submit() {
-    var user: Usuario = { nome: this.nome.value, sobrenome: this.sobrenome.value, email: this.email.value, senha: this.senha.value, dia: this.dia.value, mes: this.mes.value, ano: this.ano.value, sexo: this.sexo.value };
+    var user: Usuario = { id: uuidv4(), nome: this.nome.value, sobrenome: this.sobrenome.value, email: this.email.value, senha: this.senha.value, dia: this.dia.value, mes: this.mes.value, ano: this.ano.value, sexo: this.sexo.value };
 
-    this.usersService.addUser(user);
-
-    this.form.reset()
+    this.usersService.addUser(user).subscribe(() => {
+      this.form.reset()
+      this.router.navigate(['/entrar']);
+    })
   }
 
   get nome() {
@@ -100,16 +103,24 @@ export class CadastroComponent implements OnInit {
   userExistsValidation(email: string) {
     return (formGroup: FormGroup) => {
       const control = formGroup.controls[email];
+      let exists = false
 
-      if (control.errors && !control.errors.mustMatch) {
-        return;
-      }
+      this.usersService.getUserByEmail(control.value).subscribe((usuario: Usuario[]) => {
+        
+        if(usuario.length > 0){
+          exists = true
+        }
 
-      if (this.usersService.checkIfUserExists(control.value)) {
-        control.setErrors({ userExistsValidationError: true });
-      } else {
-        control.setErrors(null);
-      }
+        if (control.errors && !control.errors.mustMatch) {
+          return;
+        }
+  
+        if (exists) {
+          control.setErrors({ userExistsValidationError: true });
+        } else {
+          control.setErrors(null);
+        }
+      })
     }
   }
 

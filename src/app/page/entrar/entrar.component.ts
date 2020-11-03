@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import { Usuario } from 'src/app/entidades/usuario';
 import { UsersService } from 'src/app/services/users.service';
 
 @Component({
@@ -10,7 +12,7 @@ import { UsersService } from 'src/app/services/users.service';
 export class EntrarComponent implements OnInit {
   form: FormGroup
   
-  constructor(private formBuilder: FormBuilder, private usersService: UsersService) {
+  constructor(private formBuilder: FormBuilder, private usersService: UsersService, private router: Router) {
     
   }
 
@@ -25,8 +27,7 @@ export class EntrarComponent implements OnInit {
 
   submit() {
     
-
-    //this.usersService.addUser(user);
+    this.router.navigate(['/home']);
 
     this.form.reset()
   }
@@ -42,16 +43,23 @@ export class EntrarComponent implements OnInit {
   userExistsValidation(email: string) {
     return (formGroup: FormGroup) => {
       const control = formGroup.controls[email];
+      let exists = false
 
-      if (control.errors && !control.errors.mustMatch) {
-        return;
-      }
+      this.usersService.getUserByEmail(control.value).subscribe((usuario: Usuario[]) => {
+        if(usuario.length > 0){
+          exists = true
+        }
 
-      if (!this.usersService.checkIfUserExists(control.value)) {
-        control.setErrors({ userExistsValidationError: true });
-      } else {
-        control.setErrors(null);
-      }
+        if (control.errors && !control.errors.mustMatch) {
+          return;
+        }
+  
+        if (!exists) {
+          control.setErrors({ userExistsValidationError: true });
+        } else {
+          control.setErrors(null);
+        }
+      })
     }
   }
 }

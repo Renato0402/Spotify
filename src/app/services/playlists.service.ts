@@ -3,7 +3,6 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { Musica } from '../entidades/musica';
 import { Playlist } from '../entidades/playlist';
 
 @Injectable({
@@ -27,7 +26,7 @@ export class PlaylistsService {
 
   getPublicPlaylistsFromUser(id: number): Observable<Playlist[]> {
     return this.httpClient.get<Playlist[]>(this.url).pipe(map(items =>
-      items.filter(item => item.id = id)))
+      items.filter(item => item.id == id)))
   }
 
   getPlaylistsById(id: number): Observable<Playlist> {
