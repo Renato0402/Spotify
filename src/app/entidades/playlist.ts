@@ -5,6 +5,6 @@ import { Musica } from './musica';
 export class Playlist{
     id: number
     nome: string
-    musicas :Musica[]
+    musicas: number[]
     capa: string
 }

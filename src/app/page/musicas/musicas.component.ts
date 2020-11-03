@@ -1,10 +1,10 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { PlaylistsMock } from 'src/app/mock/playlistsMock';
 import { PlaylistClicadaService } from 'src/app/services/playlist-clicada.service';
 import ColorThief from 'colorthief/dist/color-thief.min.js';
 import { Musica } from 'src/app/entidades/musica';
 import { Router, NavigationStart, NavigationEnd, NavigationError } from '@angular/router';
 import { PlaylistsService } from 'src/app/services/playlists.service';
+import { MusicasService } from 'src/app/services/musicas.service';
 
 @Component({
   selector: 'app-musicas',
@@ -13,28 +13,41 @@ import { PlaylistsService } from 'src/app/services/playlists.service';
 })
 export class MusicasComponent implements OnInit {
   service: PlaylistClicadaService
-  playlistsService: PlaylistsService
+  musicasService: MusicasService
+  musicas: Musica[]
+  musica: Musica
   isPlayingMusic: Boolean
   audio: HTMLAudioElement
   lastMusicId: number
   isOnPage = true
 
-  constructor(service: PlaylistClicadaService, playlistsService: PlaylistsService, private router: Router) {
-    this.playlistsService = playlistsService
+  constructor(service: PlaylistClicadaService, musicasService: MusicasService, private router: Router) {
+    this.musicasService = musicasService
     this.service = service
     this.isPlayingMusic = false
+    this.musicas = []
+    this.musica = {} as Musica
   }
 
   ngOnInit(): void {
     this.coverBackground()
 
     this.router.events.subscribe((event) => {
-      if (event instanceof NavigationEnd && event.url != "/musicas" && this.isOnPage) {
+      if (event instanceof NavigationEnd && event.url != "/musicas" && this.isOnPage && this.isPlayingMusic) {
         this.playPause(this.lastMusicId)
 
         this.isOnPage = false
       }
     });
+
+    let auxLength = this.service.playlist.musicas.length
+
+    for(let i = this.service.playlist.musicas[0]; i <= this.service.playlist.musicas[auxLength-1]; i++){
+
+      this.musicasService.getMusicaById(i).subscribe((musica: Musica) => {
+        this.musicas.push(musica)
+      })
+    }
   }
 
   coverBackground() {
@@ -49,6 +62,8 @@ export class MusicasComponent implements OnInit {
   }
 
   playPause(id: number) {
+    let index = this.getMusicaIndex(id)
+
     let button = <HTMLImageElement>document.getElementById("button" + id)
 
     if (button != null) {
@@ -65,8 +80,7 @@ export class MusicasComponent implements OnInit {
           let lastButton = <HTMLImageElement>document.getElementById("button" + this.lastMusicId)
           lastButton.src = "assets/images/icons/play-button.png"
         }
-
-          this.audio = new Audio(this.playlistsService.playlistsMock.playlists[this.service.index].musicas[id].audio);
+          this.audio = new Audio(this.musicas[index].audio);
           this.audio.play()
           this.audio.volume = 0.5
 
@@ -79,6 +93,18 @@ export class MusicasComponent implements OnInit {
     }else{
       this.audio.pause()
     }
+  }
+
+  getMusicaIndex(id: number): number{
+    let indexFound;
+
+    this.musicas.filter((value: Musica, index: number, array: Musica[]) => {
+      if(value.id == id){
+        indexFound = index
+      }
+    })
+
+    return indexFound
   }
 
   formatDuration(duration: number) {

@@ -1,6 +1,6 @@
 <div class="container-fluid">
     <div id="header">
-        <img id="coverBackground" src="{{playlistsService.playlistsMock.playlists[service.index].capa}}" alt="capa">
+        <img id="coverBackground" src="{{service.playlist.capa}}" alt="capa">
     </div>
 
     <div class="cards">
@@ -32,7 +32,7 @@
 
         <hr>
 
-        <div class="card" *ngFor="let musica of playlistsService.playlistsMock.playlists[service.index].musicas">
+        <div class="card" *ngFor="let musica of musicas">
             <div class="elementos">
                 <div class="d-flex">
                     <div id="playButtom" class="p-2">

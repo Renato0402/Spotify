@@ -12,6 +12,7 @@ import { FooterComponent } from './footer/footer.component';
 import { PlaylistsComponent } from './page/playlists/playlists.component';
 import { EntrarComponent } from './page/entrar/entrar.component';
 import { MusicasComponent } from './page/musicas/musicas.component';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import { MusicasComponent } from './page/musicas/musicas.component';
     BrowserModule,
     AppRoutingModule,
     NgbModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]

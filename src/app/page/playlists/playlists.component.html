@@ -3,7 +3,7 @@
     <h2 id="fraseServ">Playlists</h2>
 
     <div class="card-columns">
-        <div class="card" *ngFor="let playlist of playlistsService.playlistsMock.playlists">
+        <div class="card" *ngFor="let playlist of playlists">
             <a class="clicable" routerLink="/musicas">
                 <img class="card-img-top" (click)="setMusicIndex(playlist.id)" src="{{playlist.capa}}" alt="jpg ">
 

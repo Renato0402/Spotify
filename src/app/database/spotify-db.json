@@ -18,21 +18,21 @@
             "capa": "assets/images/capas/Top50Brasil.jpg"
         },
         {
-            "id": 2,
+            "id": 3,
             "nome": "Só Track Boa 2020",
-            "musicasIds": [8, 9, 10],
+            "musicas": [8, 9, 10],
             "capa": "assets/images/capas/SoTrackBoa.jpg"
         },
         {
-            "id": 3,
+            "id": 4,
             "nome": "Trap Nation",
-            "musicasIds": [11, 12, 13, 14],
-            "capa": "assets/images/capas/TrapNation.jpg"
+            "musicas": [11, 12, 13, 14],
+            "capa": "assets/images/capas/Trap Nation.jpg"
         },
         {
-            "id": 4,
+            "id": 5,
             "nome": "Trap-Rap",
-            "musicasIds": [15, 16, 17, 18],
+            "musicas": [15, 16, 17, 18],
             "capa": "assets/images/capas/Trap-Rap.jpg"
         }
     ],
@@ -53,7 +53,7 @@
             "audio": "assets/musics/Playlists/As 50 mais tocadas no mundo/BTS - Dynamite.mp3"
         }, {
             "id": 2,
-            "nome": "Lemonade (feat. Gunna, Don Toliver & NAV)-Lemonade(feat.Gunna,DonToliver&NAV)",
+            "nome": "Lemonade (feat. Gunna, Don Toliver & NAV)",
             "album": "B4 The Storm",
             "artista": "Internet Money",
             "duration": 189600,
