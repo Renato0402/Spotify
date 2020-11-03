@@ -14,6 +14,9 @@ import { EntrarComponent } from './page/entrar/entrar.component';
 import { MusicasComponent } from './page/musicas/musicas.component';
 import { HttpClientModule } from '@angular/common/http';
 import { CadastroComponent } from './page/cadastro/cadastro.component';
+import { UserProfileComponent } from './user-profile/user-profile.component';
+import { AuthInterceptor } from './httpInterceptor/authInterceptor';
+import { ErrorInterceptor } from './httpInterceptor/ErrorInterceptor';
 
 @NgModule({
   declarations: [
@@ -25,7 +28,8 @@ import { CadastroComponent } from './page/cadastro/cadastro.component';
     PlaylistsComponent,
     EntrarComponent,
     MusicasComponent,
-    CadastroComponent
+    CadastroComponent,
+    UserProfileComponent
   ],
   imports: [
     BrowserModule,
@@ -34,7 +38,7 @@ import { CadastroComponent } from './page/cadastro/cadastro.component';
     ReactiveFormsModule,
     HttpClientModule
   ],
-  providers: [],
+  providers: [AuthInterceptor, ErrorInterceptor],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

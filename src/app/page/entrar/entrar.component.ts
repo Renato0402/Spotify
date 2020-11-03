@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Usuario } from 'src/app/entidades/usuario';
+import { AuthInterceptor } from 'src/app/httpInterceptor/authInterceptor';
+import { AuthService } from 'src/app/services/auth.service';
 import { UsersService } from 'src/app/services/users.service';
 
 @Component({
@@ -11,9 +13,9 @@ import { UsersService } from 'src/app/services/users.service';
 })
 export class EntrarComponent implements OnInit {
   form: FormGroup
-  
-  constructor(private formBuilder: FormBuilder, private usersService: UsersService, private router: Router) {
-    
+
+  constructor(private formBuilder: FormBuilder, private usersService: UsersService, private router: Router, private authInterceptor: AuthInterceptor, private authService: AuthService) {
+
   }
 
   ngOnInit(): void {
@@ -26,10 +28,11 @@ export class EntrarComponent implements OnInit {
   }
 
   submit() {
-    
-    this.router.navigate(['/home']);
+
+    this.authService.login(this.email.value, this.senha.value)
 
     this.form.reset()
+      
   }
 
   get email() {
@@ -46,20 +49,26 @@ export class EntrarComponent implements OnInit {
       let exists = false
 
       this.usersService.getUserByEmail(control.value).subscribe((usuario: Usuario[]) => {
-        if(usuario.length > 0){
+        if (usuario.length > 0) {
           exists = true
         }
 
         if (control.errors && !control.errors.mustMatch) {
           return;
         }
-  
+
         if (!exists) {
           control.setErrors({ userExistsValidationError: true });
         } else {
           control.setErrors(null);
         }
       })
+    }
+  }
+
+  isUserLogged() {
+    if (localStorage.getItem('user')) {
+      return true;
     }
   }
 }
