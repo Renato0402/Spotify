@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { Usuario } from 'src/app/entidades/usuario';
 import { UsersService } from 'src/app/services/users.service';
 
 @Component({
@@ -10,122 +9,46 @@ import { UsersService } from 'src/app/services/users.service';
 })
 export class EntrarComponent implements OnInit {
   form: FormGroup
-  Data: number = Date.now()
-  usersService: UsersService
-
-  constructor(private formBuilder: FormBuilder, usersService: UsersService) {
-    this.usersService = usersService
+  
+  constructor(private formBuilder: FormBuilder, private usersService: UsersService) {
+    
   }
 
   ngOnInit(): void {
     this.form = this.formBuilder.group({
-      "nome": new FormControl('', Validators.required),
-      "sobrenome": new FormControl('', Validators.required),
       "email": new FormControl('', [Validators.required, Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")]),
-      "confirmEmail": new FormControl('', Validators.required),
-      "senha": new FormControl('', Validators.required),
-      "confirmSenha": new FormControl('', Validators.required),
-      "dia": new FormControl('', Validators.required),
-      "mes": new FormControl('', Validators.required),
-      "ano": new FormControl('', Validators.required),
-      "sexo": new FormControl('', Validators.required),
+      "senha": new FormControl('', Validators.required)
     }, {
-      validator: [this.emailMatchValidation("email", "confirmEmail"), this.senhaMatchValidation("senha", "confirmSenha"), this.userExistsValidation("email")]
+      validator: [this.userExistsValidation("email")]
     });
   }
 
   submit() {
-    var user: Usuario = { nome: this.nome.value, sobrenome: this.sobrenome.value, email: this.email.value, senha: this.senha.value, dia: this.dia.value, mes: this.mes.value, ano: this.ano.value, sexo: this.sexo.value };
+    
 
-    this.usersService.addUser(user);
+    //this.usersService.addUser(user);
 
     this.form.reset()
-  }
-
-  get nome() {
-    return this.form.get('nome')
-  }
-
-  get sobrenome() {
-    return this.form.get('sobrenome')
   }
 
   get email() {
     return this.form.get('email')
   }
 
-  get confirmEmail() {
-    return this.form.get('confirmEmail')
-  }
-
   get senha() {
     return this.form.get('senha')
-  }
-
-  get confirmSenha() {
-    return this.form.get('confirmSenha')
-  }
-
-  get dia() {
-    return this.form.get('dia')
-  }
-
-  get mes() {
-    return this.form.get('mes')
-  }
-
-  get ano() {
-    return this.form.get('ano')
-  }
-
-  get sexo() {
-    return this.form.get('sexo')
-  }
-
-  emailMatchValidation(email: string, confirmEmail: string) {
-    return (formGroup: FormGroup) => {
-      const controlToMatch = formGroup.controls[email];
-      const control = formGroup.controls[confirmEmail];
-  
-      if (control.errors && !control.errors.mustMatch) {
-        return;
-      }
-  
-      if (controlToMatch.value !== control.value) {
-        control.setErrors({ emailMatchValidationError: true });
-      } else {
-        control.setErrors(null);
-      }
-    }
   }
 
   userExistsValidation(email: string) {
     return (formGroup: FormGroup) => {
       const control = formGroup.controls[email];
-  
-      if (control.errors && !control.errors.mustMatch) {
-        return;
-      }
-  
-      if (this.usersService.checkIfUserExists(control.value)) {
-        control.setErrors({ userExistsValidationError: true });
-      } else {
-        control.setErrors(null);
-      }
-    }
-  }
 
-  senhaMatchValidation(senha: string, confirmSenha: string) {
-    return (formGroup: FormGroup) => {
-      const controlToMatch = formGroup.controls[senha];
-      const control = formGroup.controls[confirmSenha];
-  
       if (control.errors && !control.errors.mustMatch) {
         return;
       }
-      
-      if (controlToMatch.value !== control.value) {
-        control.setErrors({ senhaMatchValidationError: true });
+
+      if (!this.usersService.checkIfUserExists(control.value)) {
+        control.setErrors({ userExistsValidationError: true });
       } else {
         control.setErrors(null);
       }

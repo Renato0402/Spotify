@@ -4,8 +4,8 @@
 
     <div class="card-columns">
         <div class="card" *ngFor="let playlist of playlists">
-            <a class="clicable" routerLink="/musicas">
-                <img class="card-img-top" (click)="setMusicIndex(playlist.id)" src="{{playlist.capa}}" alt="jpg ">
+            <a class="clicable" routerLink="/musicas/{{playlist.id}}">
+                <img class="card-img-top" src="{{playlist.capa}}" alt="jpg ">
 
                 <div class="card-img-top img-fluid ">
                     <div class="card-block ">

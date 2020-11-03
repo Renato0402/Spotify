@@ -13,6 +13,7 @@ import { PlaylistsComponent } from './page/playlists/playlists.component';
 import { EntrarComponent } from './page/entrar/entrar.component';
 import { MusicasComponent } from './page/musicas/musicas.component';
 import { HttpClientModule } from '@angular/common/http';
+import { CadastroComponent } from './page/cadastro/cadastro.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import { HttpClientModule } from '@angular/common/http';
     FooterComponent,
     PlaylistsComponent,
     EntrarComponent,
-    MusicasComponent
+    MusicasComponent,
+    CadastroComponent
   ],
   imports: [
     BrowserModule,

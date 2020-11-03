@@ -7,4 +7,6 @@ export class Playlist{
     nome: string
     musicas: number[]
     capa: string
+    isPublic: Boolean
+    userId: number
 }
