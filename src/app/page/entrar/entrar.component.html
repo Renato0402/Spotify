@@ -24,6 +24,7 @@
                 <div *ngIf="senha.invalid && senha.touched">
                     <small *ngIf="senha.errors?.required" class="text-danger">É necessário informar uma senha</small>
                     <small *ngIf="senha.errors?.minlength" class="text-danger">A senha deve ter no minimo seis dígitos</small>
+                    <small *ngIf="senha.errors?.incorrectPasswordValidationError" class="text-danger">A senha está incorreta.</small>
                 </div>
             </div>
             <div>
