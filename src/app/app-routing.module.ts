@@ -7,7 +7,7 @@ import { EntrarComponent } from './page/entrar/entrar.component';
 import { PlaylistsComponent } from './page/playlists/playlists.component';
 import { MusicasComponent } from './page/musicas/musicas.component';
 import { CadastroComponent } from './page/cadastro/cadastro.component';
-import { UserProfileComponent } from './user-profile/user-profile.component';
+import { UserProfileComponent } from './page/user-profile/user-profile.component';
 
 const routes: Routes = [
   {path: '',pathMatch: 'full',redirectTo: 'home'},

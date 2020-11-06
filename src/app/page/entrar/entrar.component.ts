@@ -35,7 +35,7 @@ export class EntrarComponent implements OnInit {
 
   submit() {
 
-    this.authService.login(this.email.value, this.senha.value).subscribe(data => {
+    /*this.authService.login(this.email.value, this.senha.value).subscribe(data => {
       this.tokenService.saveToken(data.accessToken)
       this.tokenService.saveUser(data)
 
@@ -43,7 +43,13 @@ export class EntrarComponent implements OnInit {
 
       console.log(data)
       this.form.reset()
-    })
+    })*/
+
+    this.usersService.login(this.email.value, this.senha.value)
+
+    if(localStorage.getItem("users")){
+      this.isLogged
+    }
 
     //this.usersService.login(this.email.value, this.senha.value)
   }

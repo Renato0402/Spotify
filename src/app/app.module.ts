@@ -1,7 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
-
+import { CommonModule } from '@angular/common';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { NavbarComponent } from './navbar/navbar.component';
@@ -14,7 +14,7 @@ import { EntrarComponent } from './page/entrar/entrar.component';
 import { MusicasComponent } from './page/musicas/musicas.component';
 import { HttpClientModule } from '@angular/common/http';
 import { CadastroComponent } from './page/cadastro/cadastro.component';
-import { UserProfileComponent } from './user-profile/user-profile.component';
+import { UserProfileComponent } from './page/user-profile/user-profile.component';
 import { AuthInterceptor } from './httpInterceptor/authInterceptor';
 import { ErrorInterceptor } from './httpInterceptor/ErrorInterceptor';
 
@@ -36,7 +36,8 @@ import { ErrorInterceptor } from './httpInterceptor/ErrorInterceptor';
     AppRoutingModule,
     NgbModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    CommonModule
   ],
   providers: [AuthInterceptor, ErrorInterceptor],
   bootstrap: [AppComponent]

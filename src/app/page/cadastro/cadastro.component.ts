@@ -38,15 +38,15 @@ export class CadastroComponent implements OnInit {
   submit() {
     var user: Usuario = { id: uuidv4(), nome: this.nome.value, sobrenome: this.sobrenome.value, email: this.email.value, senha: this.senha.value, dia: this.dia.value, mes: this.mes.value, ano: this.ano.value, sexo: this.sexo.value };
 
-    /*this.usersService.addUser(user).subscribe(() => {
-      this.form.reset()
-      this.router.navigate(['/entrar']);
-    })*/
-
-    this.authService.register(this.email.value, this.senha.value).subscribe(() => {
+    this.usersService.addUser(user).subscribe(() => {
       this.form.reset()
       this.router.navigate(['/entrar']);
     })
+
+    /*this.authService.register(this.email.value, this.senha.value).subscribe(() => {
+      this.form.reset()
+      this.router.navigate(['/entrar']);
+    })*/
   }
 
   get nome() {

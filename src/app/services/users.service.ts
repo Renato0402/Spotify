@@ -2,6 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
+import { Subject } from 'rxjs/internal/Subject';
 import { map } from 'rxjs/operators';
 import { Playlist } from '../entidades/playlist';
 import { Usuario } from '../entidades/usuario';
@@ -12,6 +13,10 @@ import { UsersMock } from '../mock/usersMock';
 })
 export class UsersService {
   url;
+
+  user = new Subject<string>();
+
+  userlogged = this.user.asObservable();
 
   constructor(private httpClient: HttpClient, private router: Router) {
     this.url = "http://localhost:3000/users"
@@ -34,6 +39,7 @@ export class UsersService {
   login(email: string, password: string) {
     this.checkPassword(email, password).subscribe((user: Usuario[]) => {
       localStorage.setItem('user', JSON.stringify(user));
+      this.user.next(String(user))
 
       this.router.navigate(['/']);
     })
