@@ -2,6 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
+import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
 import { Subject } from 'rxjs/internal/Subject';
 import { map } from 'rxjs/operators';
 import { Playlist } from '../entidades/playlist';
@@ -13,17 +14,24 @@ import { UsersMock } from '../mock/usersMock';
 })
 export class UsersService {
   url;
-
-  user = new Subject<string>();
-
-  userlogged = this.user.asObservable();
+  private loggedIn
 
   constructor(private httpClient: HttpClient, private router: Router) {
     this.url = "http://localhost:3000/users"
+
+    if(this.getLocalUser() != null){
+      this.loggedIn = new BehaviorSubject<boolean>(true);
+    }else{
+      this.loggedIn = new BehaviorSubject<boolean>(false);
+    }
   }
 
   httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+  }
+
+  isLoggedIn() {
+    return this.loggedIn.asObservable();
   }
 
   getUserByEmail(email: string): Observable<Usuario[]> {
@@ -36,16 +44,30 @@ export class UsersService {
       items.filter(item => item.email == email && item.senha == password)))
   }
 
+  addUser(user: Usuario): Observable<Usuario> {
+    return this.httpClient.post<Usuario>(this.url, JSON.stringify(user), this.httpOptions)
+  }
+
+  updateUser(user: Usuario): Observable<Usuario> {
+    return this.httpClient.put<Usuario>(this.url, JSON.stringify(user), this.httpOptions)
+  }
+
   login(email: string, password: string) {
     this.checkPassword(email, password).subscribe((user: Usuario[]) => {
-      localStorage.setItem('user', JSON.stringify(user));
-      this.user.next(String(user))
-
+      localStorage.setItem('user', JSON.stringify(user[0]));
+      //this.user.next(String(user))
+      this.loggedIn.next(true)
       this.router.navigate(['/']);
     })
   }
 
-  addUser(user: Usuario): Observable<Usuario> {
-    return this.httpClient.post<Usuario>(this.url, JSON.stringify(user), this.httpOptions)
+  logout(){
+    localStorage.clear()
+    this.loggedIn.next(false)
+    this.router.navigate(['/entrar']);
+  }
+
+  getLocalUser(){
+    return JSON.parse(localStorage.getItem('user'))
   }
 }

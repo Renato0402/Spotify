@@ -3,22 +3,28 @@
         <div class="col-md-4">
             <div class="panel panel-default">
                 <div class="panel-body text-center">
-                    <div class="pv-lg"><img class="center-block img-responsive img-circle img-thumbnail thumb96" src="assets/images/icons/user.jpg" alt="Contact"></div>
-                    <h3 class="m0 text-bold">Usuário</h3>
+                    <div class="pv-lg">
+                        <img class="center-block img-responsive img-circle img-thumbnail thumb96" src="assets/images/icons/user.jpg" alt="playlist">
+                    </div>
+                    <h3 class="m0 text-bold">{{user.nome}} {{user.sobrenome}}</h3>
                     <div class="mv-lg">
                         <p>Descrição pro filho da puta</p>
                     </div>
-                    <div class="text-center"><a class="btn btn-primary" href="">Excluir Usuário</a></div>
+                    <div class="text-center">
+                        <a class="btn btn-primary" (click)="logout()">Fazer Logout</a>
+                    </div>
                 </div>
             </div>
             <div class="panel panel-default hidden-xs hidden-sm">
                 <div class="panel-heading">
-                    <div class="panel-title text-center">Playlists Visitadas</div>
+                    <div class="panel-title text-center">Minhas Playlists</div>
                 </div>
                 <div class="panel-body">
                     <div class="media">
                         <div class="media-left media-middle">
-                            <a href="#"><img class="media-object img-circle img-thumbnail thumb48" src="assets/images/icons/user.jpg" alt="Contact"></a>
+                            <a href="#">
+                                <img class="media-object img-circle img-thumbnail thumb48" src="assets/images/icons/user.jpg" alt="playlist">
+                            </a>
                         </div>
                         <div class="media-body pt-sm">
                             <div class="text-bold">Playlist 1</div>
@@ -26,29 +32,26 @@
                     </div>
                     <div class="media">
                         <div class="media-left media-middle">
-                            <a href="#"><img class="media-object img-circle img-thumbnail thumb48" src="assets/images/icons/user.jpg" alt="Contact"></a>
+                            <a href="#"><img class="media-object img-circle img-thumbnail thumb48" src="assets/images/icons/user.jpg" alt="playlist"></a>
                         </div>
                         <div class="media-body pt-sm">
-                            <div class="text-bold">Playlist 2
-                            </div>
+                            <div class="text-bold">Playlist 2</div>
                         </div>
                     </div>
                     <div class="media">
                         <div class="media-left media-middle">
-                            <a href="#"><img class="media-object img-circle img-thumbnail thumb48" src="assets/images/icons/user.jpg" alt="Contact"></a>
+                            <a href="#"><img class="media-object img-circle img-thumbnail thumb48" src="assets/images/icons/user.jpg" alt="playlist"></a>
                         </div>
                         <div class="media-body pt-sm">
-                            <div class="text-bold">Playlist 3
-                            </div>
+                            <div class="text-bold">Playlist 3</div>
                         </div>
                     </div>
                     <div class="media">
                         <div class="media-left media-middle">
-                            <a href="#"><img class="media-object img-circle img-thumbnail thumb48" src="assets/images/icons/user.jpg" alt="Contact"></a>
+                            <a href="#"><img class="media-object img-circle img-thumbnail thumb48" src="assets/images/icons/user.jpg" alt="playlist"></a>
                         </div>
                         <div class="media-body pt-sm">
-                            <div class="text-bold">Playlist 4
-                            </div>
+                            <div class="text-bold">Playlist 4</div>
                         </div>
                     </div>
                 </div>
@@ -61,35 +64,97 @@
                     <div class="row pv-lg">
                         <div class="col-lg-2"></div>
                         <div class="col-lg-8">
-                            <form [formGroup]="form" class="form-horizontal ng-pristine ng-valid">
-                                <div class="form-group">
-                                    <label class="col-sm-2" for="inputContact1">Nome</label>
-                                    <div class="col-sm-10">
-                                        <input class="form-control" id="inputContact1" type="text" placeholder="" value="Nome do Usuário">
+                            <form [formGroup]="form" (ngSubmit)="submit()" novalidate>
+                                <div class="row">
+                                    <div class="col">
+                                        <label for="inputName">Nome:</label>
+                                        <input id="inputName" formControlName="nome" type="text" class="form-control" placeholder="Nome" [class.is-invalid]="nome.invalid && nome.touched">
+                                        <small id="nameHelp" class="form-text text-muted">Digite seu nome.</small>
+                                        <div *ngIf="nome.invalid && nome.touched">
+                                            <small *ngIf="nome.errors?.required" class="text-danger">É necessário informar seu nome.</small>
+                                        </div>
+                                    </div>
+                                    <div class="col">
+                                        <label for="inputSobrenome">Sobrenome:</label>
+                                        <input id="inputSobrenome" formControlName="sobrenome" type="text" class="form-control" placeholder="Sobrenome" [class.is-invalid]="sobrenome.invalid && sobrenome.touched">
+                                        <small id="sobrenomeHelp" class="form-text text-muted">Digite seu sobrenome.</small>
+                                        <div *ngIf="sobrenome.invalid && sobrenome.touched">
+                                            <small *ngIf="sobrenome.errors?.required" class="text-danger">É necessário informar
+                                                seu sobrenome.</small>
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label class="col-sm-2" for="inputContact2">Email</label>
-                                    <div class="col-sm-10">
-                                        <input class="form-control" id="inputContact2" type="email" value="mail@example.com">
+                                    <label for="inputEmail">Endereço de email:</label>
+                                    <input id="inputEmail" formControlName="email" [class.is-invalid]="email.invalid && email.touched" type=" email" class="form-control" aria-describedby="emailHelp" placeholder="Seu email">
+                                    <small id="emailHelp" class="form-text text-muted">Nunca vamos compartilhar seu email, com ninguém.</small>
+                                    <div *ngIf="email.invalid && email.touched">
+                                        <small *ngIf="email.errors?.required" class="text-danger">É necessário informar um email.</small>
+                                        <small *ngIf="email.errors?.pattern" class="text-danger">O email deve ser válido.</small>
+                                        <small *ngIf="email.errors?.userExistsValidationError" class="text-danger">Já existe um usuário com esse email.</small>
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label class="col-sm-2" for="inputContact3">Senha</label>
-                                    <div class="col-sm-10">
-                                        <input class="form-control" id="inputContact3" type="text" value="*******">
+                                    <label for="inputConfirmEmail">Confirmar email:</label>
+                                    <input id="inputConfirmEmail" formControlName="confirmEmail" type="email" [class.is-invalid]="confirmEmail.errors?.emailMatchValidationError || confirmEmail.invalid && confirmEmail.touched" class="form-control" aria-describedby="emailHelp" placeholder="Seu email">
+                                    <small id="confirmEmailHelp" class="form-text text-muted">Por favor, confirme seu email.</small>
+
+                                    <div *ngIf="(confirmEmail.invalid && confirmEmail.touched) || confirmEmail.dirty">
+                                        <small *ngIf="confirmEmail.errors?.required" class="text-danger">É necessário confirmar seu email.<br></small>
+                                        <small *ngIf="confirmEmail.errors?.pattern" class="text-danger">O email de confirmação deve ser válido.</small>
+                                        <small *ngIf="confirmEmail.errors?.emailMatchValidationError" class="text-danger">Os emails não coincidem!</small>
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label class="col-sm-2" for="inputContact4">Nascimento</label>
-                                    <div class="col-sm-10">
-                                        <input class="form-control" id="inputContact4" type="text" value="(12) 123 987 465">
+                                    <label for="inputpassword">Senha:</label>
+                                    <input id="inputpassword" formControlName="senha" [class.is-invalid]="senha.invalid && senha.touched" type="password" class="form-control" placeholder="Senha" minlength="6">
+                                    <small id="passwordHelp" class="form-text text-muted">A senha deve ter no minimo seis digitos.</small>
+                                    <div *ngIf="senha.invalid && senha.touched">
+                                        <small *ngIf="senha.errors?.required" class="text-danger">É necessário informar uma senha</small>
+                                        <small *ngIf="senha.errors?.minlength" class="text-danger">A senha deve ter no minimo seis dígitos</small>
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label class="col-sm-2" for="inputContact5">Sexo</label>
-                                    <div class="col-sm-10">
-                                        <select id="inputSexo" class="custom-select" formControlName="sexo">
+                                    <label for="inputConfirmPassword">Confirmar Senha:</label>
+                                    <input id="inputConfirmPassword" formControlName="confirmSenha" [class.is-invalid]="confirmSenha.errors?.senhaMatchValidationError || confirmSenha.invalid && confirmSenha.touched" type="password" class="form-control" placeholder="Senha" minlength="6">
+                                    <div *ngIf="(confirmSenha.invalid && confirmSenha.touched) || confirmSenha.dirty">
+                                        <small *ngIf="confirmSenha.errors?.required" class="text-danger">É necessário confirmar sua senha</small>
+                                        <small *ngIf="confirmSenha.errors?.senhaMatchValidationError" class="text-danger">As senhas não coincidem!</small>
+                                    </div>
+                                </div>
+                                <div id="titulo">Data de Nascimento:</div>
+                                <div class="form-row">
+                                    <div class="form-group col-md-4">
+                                        <label for="inputDia">Dia</label>
+                                        <input type="number" class="form-control" id="inputDia" formControlName="dia" [class.is-invalid]="dia.invalid && dia.touched || dia.value > 31" maxlength="2">
+                                    </div>
+                                    <div class="form-group col-md-4">
+                                        <label for="inputMes">Mês</label>
+                                        <select id="inputMes" class="custom-select" formControlName="mes" [class.is-invalid]="mes.invalid && mes.touched">
+                                            <option selected>Escolher...</option>
+                                            <option>Janeiro</option>
+                                            <option>Fevereiro</option>
+                                            <option>Março</option>
+                                            <option>Abril</option>
+                                            <option>Maio</option>
+                                            <option>Junho</option>
+                                            <option>Julho</option>
+                                            <option>Agosto</option>
+                                            <option>Setembro</option>
+                                            <option>Outubro</option>
+                                            <option>Novembro</option>
+                                            <option>Dezembro</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group col-md-4">
+                                        <label for="inputAno">Ano</label>
+                                        <input type="number" class="form-control" id="inputAno" formControlName="ano" [class.is-invalid]="(ano.invalid && ano.touched || ano.value >= (Data | date: 'yyyy')) " minlength="4" maxlength="4">
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group col-md-4">
+                                        <label for="inputSexo">Sexo</label>
+                                        <select id="inputSexo" class="custom-select" formControlName="sexo" [class.is-invalid]="sexo.invalid && sexo.touched">
                                             <option selected>Escolher...</option>
                                             <option>Masculino</option>
                                             <option>Feminino</option>
@@ -97,10 +162,8 @@
                                         </select>
                                     </div>
                                 </div>
-                                <div class="form-group">
-                                    <div class="col-sm-offset-2 col-sm-10">
-                                        <button class="btn btn-info" type="submit">Atualizar</button>
-                                    </div>
+                                <div class="form-row">
+                                    <button id="botao" type="submit" class="btn btn-primary" [disabled]="form.invalid">Inscrever-se</button>
                                 </div>
                             </form>
                         </div>

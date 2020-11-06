@@ -4,18 +4,17 @@
     </a>
 
     <ul class="nav justify-content-end">
-        <div [ngSwitch]="get()">
-            <li class="nav-item">
-                <a class="nav-link" routerLink="/userProfile" *ngSwitchCase="true">Perfil</a>
-                <a class="nav-link" routerLink="/entrar" *ngSwitchDefault>Entrar</a>
-            </li>
-        </div>
-
+        <li class="nav-item" *ngIf="(isLoggedIn$ | async) == true">
+            <a id="entrar" routerLink="/userProfile" *ngIf="(isLoggedIn$ | async) == true">Perfil</a>
+        </li>
+        <li class="nav-item" *ngIf="(isLoggedIn$ | async) == false">
+            <a id="entrar" routerLink="/entrar">Entrar</a>
+        </li>
         <li class="nav-item">
             <a id="playlists" routerLink="/playlists">Playlists</a>
         </li>
         <li class="nav-item">
-            <a id="ajuda" routerLink="/userProfile">Ajuda</a>
+            <a id="ajuda" routerLink="/ajuda">Ajuda</a>
         </li>
     </ul>
 </nav>

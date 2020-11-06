@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
+import { Observable } from 'rxjs/internal/Observable';
 import { UsersService } from '../services/users.service';
 
 @Component({
@@ -8,16 +9,17 @@ import { UsersService } from '../services/users.service';
   styleUrls: ['./navbar.component.css']
 })
 export class NavbarComponent implements OnInit {
-  user = localStorage.getItem("user")
-  sub: Subscription
+  isLoggedIn$: Observable<boolean>;
 
   constructor(private usersService: UsersService) { }
 
   ngOnInit(): void {
-    this.sub = this.usersService.userlogged.subscribe(
+    /*this.sub = this.usersService.userlogged.subscribe(
       currentUser => {
         this.user = currentUser;
-      });
+      });*/
+
+      this.isLoggedIn$ = this.usersService.isLoggedIn();
   }
 
   get(){
