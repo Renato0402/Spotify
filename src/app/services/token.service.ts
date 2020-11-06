@@ -13,22 +13,22 @@ export class TokenService {
   }
 
   logout(){
-    window.sessionStorage.clear();
+    localStorage.clear()
   }
 
   saveToken(token: string) {
-    window.sessionStorage.setItem(this.tokenKey, token);
+    localStorage.setItem(this.tokenKey, token);
   }
 
   getToken(): string {
-    return sessionStorage.getItem(this.tokenKey);
+    return localStorage.getItem(this.tokenKey);
   }
 
   saveUser(user) {
-    window.sessionStorage.setItem(this.userKey, JSON.stringify(user));
+    localStorage.setItem(this.userKey, JSON.stringify(user));
   }
 
   getUser() {
-    return JSON.parse(sessionStorage.getItem(this.userKey));
+    return JSON.parse(localStorage.getItem(this.userKey));
   }
 }

@@ -91,7 +91,6 @@
                                     <div *ngIf="email.invalid && email.touched">
                                         <small *ngIf="email.errors?.required" class="text-danger">É necessário informar um email.</small>
                                         <small *ngIf="email.errors?.pattern" class="text-danger">O email deve ser válido.</small>
-                                        <small *ngIf="email.errors?.userExistsValidationError" class="text-danger">Já existe um usuário com esse email.</small>
                                     </div>
                                 </div>
                                 <div class="form-group">

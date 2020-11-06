@@ -28,7 +28,7 @@ export class UserProfileComponent implements OnInit {
       "ano": new FormControl('', Validators.required),
       "sexo": new FormControl('', Validators.required),
     }, {
-      validator: [this.emailMatchValidation("email", "confirmEmail"), this.senhaMatchValidation("senha", "confirmSenha"), this.userExistsValidation("email")]
+      validator: [this.emailMatchValidation("email", "confirmEmail"), this.senhaMatchValidation("senha", "confirmSenha")]
     });
 
     this.user = this.usersService.getLocalUser()
@@ -39,9 +39,7 @@ export class UserProfileComponent implements OnInit {
   submit() {
     let updatedUser:Usuario = { id: this.user.id, nome: this.nome.value, sobrenome: this.sobrenome.value, email: this.email.value, senha: this.senha.value, dia: this.dia.value, mes: this.mes.value, ano: this.ano.value, sexo: this.sexo.value }
     
-    this.usersService.updateUser(updatedUser).subscribe(() => {
-      this.form.reset()
-    })
+    this.usersService.updateUser(updatedUser).subscribe()
   }
 
   get nome() {
@@ -98,30 +96,6 @@ export class UserProfileComponent implements OnInit {
       } else {
         control.setErrors(null);
       }
-    }
-  }
-
-  userExistsValidation(email: string) {
-    return (formGroup: FormGroup) => {
-      const control = formGroup.controls[email];
-      let exists = false
-
-      this.usersService.getUserByEmail(control.value).subscribe((usuario: Usuario[]) => {
-        
-        if(usuario.length > 0){
-          exists = true
-        }
-
-        if (control.errors && !control.errors.mustMatch) {
-          return;
-        }
-  
-        if (exists) {
-          control.setErrors({ userExistsValidationError: true });
-        } else {
-          control.setErrors(null);
-        }
-      })
     }
   }
 

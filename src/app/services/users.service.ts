@@ -49,7 +49,9 @@ export class UsersService {
   }
 
   updateUser(user: Usuario): Observable<Usuario> {
-    return this.httpClient.put<Usuario>(this.url, JSON.stringify(user), this.httpOptions)
+    localStorage.setItem('user', JSON.stringify(user));
+    
+    return this.httpClient.put<Usuario>(this.url + "/" + user.id, JSON.stringify(user), this.httpOptions)
   }
 
   login(email: string, password: string) {
