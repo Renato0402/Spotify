@@ -61,7 +61,7 @@
                     </div>
 
                     <div class="p-2 justify-content-end" *ngIf="!playlist.isPublic">
-                        <button id="removeMusic" class="material-icons" (click)="removeMusic(i)">remove_circle</button>
+                        <button id="removeMusic" class="material-icons" (click)="musicaToRemove = i" data-toggle="modal" data-target="#removeMusicaConfirm">remove_circle</button>
                     </div>
                 </div>
             </div>
@@ -74,16 +74,14 @@
 
             <ul class="fab-options">
                 <li>
-
                     <span class="fab-label">Adicionar Música</span>
                     <div class="fab-icon-holder" data-toggle="modal" data-target="#centralModalSm">
                         <i class="material-icons">add</i>
                     </div>
-
                 </li>
                 <li>
                     <span class="fab-label">Excluir Playlist</span>
-                    <div class="fab-icon-holder" data-toggle="modal" data-target="#centralModalSm">
+                    <div class="fab-icon-holder" data-toggle="modal" data-target="#deletePlaylistConfirm">
                         <i class="material-icons">delete</i>
                     </div>
                 </li>
@@ -144,6 +142,34 @@
                                 </tr>
                             </tbody>
                         </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade" id="removeMusicaConfirm" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-sm modal-notify modal-danger" role="document">
+                <div class="modal-content text-center">
+                    <div class="modal-header d-flex justify-content-center">
+                        <p class="heading">Tem certeza que deseja remover essa música da playlist?</p>
+                    </div>
+                    <div id="loginRequestFooter" class="modal-footer">
+                        <a class="btn btn-success" (click)="removeMusic()" data-dismiss="modal">Sim</a>
+                        <a type="button" class="btn btn-danger waves-effect" data-dismiss="modal">Não</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade" id="deletePlaylistConfirm" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-sm modal-notify modal-danger" role="document">
+                <div class="modal-content text-center">
+                    <div class="modal-header d-flex justify-content-center">
+                        <p class="heading">Tem certeza que deseja excluir essa Playlist?</p>
+                    </div>
+                    <div id="loginRequestFooter" class="modal-footer">
+                        <a class="btn btn-success" (click)="deletePlaylist()" data-dismiss="modal">Sim</a>
+                        <a type="button" class="btn btn-danger waves-effect" data-dismiss="modal">Não</a>
                     </div>
                 </div>
             </div>

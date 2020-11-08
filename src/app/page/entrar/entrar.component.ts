@@ -21,9 +21,9 @@ export class EntrarComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    if(this.tokenService.getToken){
+    /*if(this.tokenService.getToken){
       this.isLogged = true
-    }
+    }*/
 
     this.form = this.formBuilder.group({
       "email": new FormControl('', [Validators.required, Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")]),
@@ -47,9 +47,9 @@ export class EntrarComponent implements OnInit {
 
     this.usersService.login(this.email.value, this.senha.value)
 
-    if(localStorage.getItem("users")){
+    /*if(localStorage.getItem("users")){
       this.isLogged
-    }
+    }*/
 
     //this.usersService.login(this.email.value, this.senha.value)
   }

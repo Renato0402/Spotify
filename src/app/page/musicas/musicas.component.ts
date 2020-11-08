@@ -29,6 +29,7 @@ export class MusicasComponent implements OnInit {
   searchButtomClicked$: Observable<boolean>
   musicAddedClickedSubject: BehaviorSubject<boolean>
   musicAddedClicked$: Observable<boolean>
+  musicaToRemove
 
   constructor(private playlistsService: PlaylistsService, musicasService: MusicasService, private router: Router, private activatedRoute: ActivatedRoute, private formBuilder: FormBuilder) {
     this.musicasService = musicasService
@@ -159,23 +160,31 @@ export class MusicasComponent implements OnInit {
     })
   }
 
-  removeMusic(index: number) {
+  removeMusic() {
     let index1 = 0
 
     this.playlist.musicas.filter((value: number) => {
-      if (value == this.musicasSubject.getValue()[index].id) {
-        index1 = index
+      if (value == this.musicasSubject.getValue()[this.musicaToRemove].id) {
+        index1 = this.musicaToRemove
       }
     })
 
     this.playlist.musicas.splice(index1, 1)
 
-    let index2 = this.musicasSubject.getValue().indexOf(this.musicasSubject.getValue()[index])
+    let index2 = this.musicasSubject.getValue().indexOf(this.musicasSubject.getValue()[this.musicaToRemove])
 
     this.musicasSubject.getValue().splice(index2, 1)
 
     this.playlistsService.updatePlaylist(this.playlist).subscribe(() => {
       this.musicAddedClickedSubject.next(true)
+    })
+  }
+
+  deletePlaylist() {
+    console.log(this.playlist)
+
+    this.playlistsService.deletePlaylist(this.playlist.id).subscribe(() => { 
+      this.router.navigate(['/playlists'])
     })
   }
 }

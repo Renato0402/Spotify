@@ -45,7 +45,7 @@ export class PlaylistsService {
     return this.httpClient.post<Playlist>(this.url, JSON.stringify(playlist), this.httpOptions)
   }
 
-  deletePlaylist(playlists: Playlist) {
-    return this.httpClient.delete<Playlist>(this.url + '/' + playlists.id, this.httpOptions)
+  deletePlaylist(id: number) {
+    return this.httpClient.delete(this.url + '/' + id, this.httpOptions)
   }
 }
