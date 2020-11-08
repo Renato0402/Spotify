@@ -1,4 +1,6 @@
 <div class="container-fluid">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
     <div id="header">
         <img id="coverBackground" src="{{playlist.capa}}" alt="capa">
     </div>
@@ -27,12 +29,15 @@
                 <div id="duration" class="p-2">
                     <h4 class="card-title ">Duração</h4>
                 </div>
+
+                <div id="space" class="p-2" *ngIf="!playlist.isPublic">
+                    <h4 class="card-title "> </h4>
+                </div>
             </div>
         </div>
 
         <hr>
-
-        <div class="card" *ngFor="let musica of musicas">
+        <div class="card" *ngFor="let musica of musicas$  | async; index as i">
             <div class="elementos">
                 <div class="d-flex">
                     <div id="playButtom" class="p-2">
@@ -53,6 +58,92 @@
 
                     <div id="duration" class="p-2 justify-content-end">
                         <h4 class="card-title ">{{formatDuration(musica.duration)}}</h4>
+                    </div>
+
+                    <div class="p-2 justify-content-end" *ngIf="!playlist.isPublic">
+                        <button id="removeMusic" class="material-icons" (click)="removeMusic(i)">remove_circle</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="fab-container" *ngIf="!playlist.isPublic">
+            <div class="fab fab-icon-holder">
+                <i class="material-icons">menu</i>
+            </div>
+
+            <ul class="fab-options">
+                <li>
+
+                    <span class="fab-label">Adicionar Música</span>
+                    <div class="fab-icon-holder" data-toggle="modal" data-target="#centralModalSm">
+                        <i class="material-icons">add</i>
+                    </div>
+
+                </li>
+                <li>
+                    <span class="fab-label">Excluir Playlist</span>
+                    <div class="fab-icon-holder" data-toggle="modal" data-target="#centralModalSm">
+                        <i class="material-icons">delete</i>
+                    </div>
+                </li>
+            </ul>
+        </div>
+
+        <div class="modal fade" id="centralModalSm" tabindex="-1" role="dialog" aria-labelledby="newPlaylistModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg" role="document">
+                <div class="modal-content">
+
+                    <div class="modal-header">
+                        <h4 class="modal-title w-100" id="newPlaylistModalLabel">Adicionar música</h4>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span id="closeButtom" aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form [formGroup]="form" (ngSubmit)="searchMusica()">
+
+                            <div class="md-form">
+                                <div class="form-group col-md-10">
+                                    <label for="searchInput">Insira o nome da música ou cantor que você deseja</label>
+                                    <input type="text" id="searchInput" formControlName="searchInput" class="form-control" placeholder="Nome Ou Cantor" required>
+                                    <div *ngIf="searchInput.invalid && searchInput.touched">
+                                        <small *ngIf="searchInput.errors?.required" class="text-danger">É necessário
+                                            informar um nome para a playlist.</small>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="modal-footer">
+                                <button id="addButtom" type="submit" class="btn btn-success btn-sm" [disabled]="form.invalid">Criar Playlist</button>
+                                <button id="fecharButtom" type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Fechar</button>
+                            </div>
+                        </form>
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Nome</th>
+                                    <th>Álbum</th>
+                                    <th>Artista</th>
+                                    <th>Duração</th>
+                                    <th> </th>
+                                </tr>
+                            </thead>
+                            <tbody *ngIf="(searchButtomClicked$ | async) == true">
+                                <tr *ngFor="let musica of foundMusics; index as i">
+                                    <th scope="row">{{i+1}}</th>
+                                    <td>{{musica.nome}}</td>
+                                    <td>{{musica.album}}</td>
+                                    <td>{{musica.artista}}</td>
+                                    <td id="durarionTable">{{formatDuration(musica.duration)}}</td>
+                                    <td>
+                                        <button id="addMusic" class="material-icons" (click)="addMusic(i)">add</button>
+                                    </td>
+                                    <td><a><i class="fas fa-times"></i></a></td>
+                                </tr>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>

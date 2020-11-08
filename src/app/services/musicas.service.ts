@@ -1,6 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 import { Musica } from '../entidades/musica';
 
 @Injectable({
@@ -23,6 +24,11 @@ export class MusicasService {
 
   getMusicaById(id: number): Observable<Musica> {
     return this.httpClient.get<Musica>(this.url + '/' + id)
+  }
+
+  getMusicaByNameOrArtist(input: string): Observable<Musica[]> {
+    return this.httpClient.get<Musica[]>(this.url).pipe(map(items =>
+      items.filter(item => item.nome.toLowerCase().includes(input.toLowerCase())|| item.artista.toLowerCase().includes(input.toLowerCase()))))
   }
 
   saveMusicas(playlist: Musica): Observable<Musica> {

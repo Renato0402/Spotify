@@ -30,3 +30,58 @@
 .card-img-top {
     margin-top: 2%;
 }
+
+.floating-btn {
+    width: 88px;
+    height: 88px;
+    background: #01a701;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    border-radius: 58%;
+    color: #ffffff;
+    font-size: 40px;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 8.25);
+    position: fixed;
+    right: 28px;
+    bottom: 20px;
+    transition: background 0.25s;
+}
+
+.floating-btn:active {
+    background-color: rgba(1, 167, 1, 0.788)
+}
+
+.modal-content {
+    background-color: rgba(12, 12, 12, 0.966);
+}
+
+label {
+    color: white;
+}
+
+#newPlaylistModalLabel {
+    color: white;
+}
+
+#addButtom {
+    background-color: #01a701;
+    border-color: #01a701;
+}
+
+#addButtom:active {
+    background-color: rgba(1, 167, 1, 0.788);
+}
+
+p {
+    color: white;
+}
+
+#loginRequestFooter {
+    justify-content: center;
+}
+
+#closeButtom {
+    color: red;
+}

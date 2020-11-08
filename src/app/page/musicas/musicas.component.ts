@@ -5,6 +5,8 @@ import { Router, NavigationStart, NavigationEnd, NavigationError, ActivatedRoute
 import { MusicasService } from 'src/app/services/musicas.service';
 import { Playlist } from 'src/app/entidades/playlist';
 import { PlaylistsService } from 'src/app/services/playlists.service';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { BehaviorSubject, Observable, of } from 'rxjs';
 
 @Component({
   selector: 'app-musicas',
@@ -14,31 +16,49 @@ import { PlaylistsService } from 'src/app/services/playlists.service';
 export class MusicasComponent implements OnInit {
   musicasService: MusicasService
   playlist: Playlist
-  musicas: Musica[]
+  musicasSubject: BehaviorSubject<Musica[]>
+  musicas$: Observable<Musica[]>
+  foundMusics: Musica[]
   musica: Musica
   isPlayingMusic: Boolean
   audio: HTMLAudioElement
   lastMusicId: number
+  form: FormGroup
   isOnPage = true
+  searchButtomClickedSubject: BehaviorSubject<boolean>
+  searchButtomClicked$: Observable<boolean>
+  musicAddedClickedSubject: BehaviorSubject<boolean>
+  musicAddedClicked$: Observable<boolean>
 
-  constructor(private playlistsService: PlaylistsService, musicasService: MusicasService, private router: Router, private activatedRoute: ActivatedRoute) {
+  constructor(private playlistsService: PlaylistsService, musicasService: MusicasService, private router: Router, private activatedRoute: ActivatedRoute, private formBuilder: FormBuilder) {
     this.musicasService = musicasService
     this.playlist = new Playlist()
     this.isPlayingMusic = false
-    this.musicas = []
     this.musica = {} as Musica
+    this.musicasSubject = new BehaviorSubject<Musica[]>([])
+    this.musicas$ = this.musicasSubject.asObservable()
+    this.searchButtomClickedSubject = new BehaviorSubject<boolean>(false)
+    this.searchButtomClicked$ = this.searchButtomClickedSubject.asObservable()
+    this.musicAddedClickedSubject = new BehaviorSubject<boolean>(false)
+    this.musicAddedClicked$ = this.searchButtomClickedSubject.asObservable()
   }
 
   ngOnInit(): void {
     this.coverBackground()
 
+    this.form = this.formBuilder.group({
+      "searchInput": new FormControl('', Validators.required)
+    })
+
     this.playlistsService.getPlaylistsById(this.activatedRoute.snapshot.params.id).subscribe((playlist: Playlist) => {
       this.playlist = playlist
 
-      for (let i = 0; i < this.playlist.musicas.length; i++) {
-        this.musicasService.getMusicaById(this.playlist.musicas[i]).subscribe((musica: Musica) => {
-          this.musicas.push(musica)
-        })
+      if (playlist.musicas != null) {
+        for (let i = 0; i < this.playlist.musicas.length; i++) {
+          this.musicasService.getMusicaById(this.playlist.musicas[i]).subscribe((musica: Musica) => {
+            this.musicasSubject.getValue().push(musica)
+          })
+        }
       }
     })
 
@@ -49,6 +69,10 @@ export class MusicasComponent implements OnInit {
         this.isOnPage = false
       }
     });
+  }
+
+  get searchInput() {
+    return this.form.get('searchInput')
   }
 
   coverBackground() {
@@ -81,7 +105,7 @@ export class MusicasComponent implements OnInit {
           let lastButton = <HTMLImageElement>document.getElementById("button" + this.lastMusicId)
           lastButton.src = "assets/images/icons/play-button.png"
         }
-        this.audio = new Audio(this.musicas[index].audio);
+        this.audio = new Audio(this.musicasSubject.getValue()[index].audio);
         this.audio.play()
         this.audio.volume = 0.5
 
@@ -99,7 +123,7 @@ export class MusicasComponent implements OnInit {
   getMusicaIndex(id: number): number {
     let indexFound;
 
-    this.musicas.filter((value: Musica, index: number, array: Musica[]) => {
+    this.musicasSubject.getValue().filter((value: Musica, index: number, array: Musica[]) => {
       if (value.id == id) {
         indexFound = index
       }
@@ -116,5 +140,42 @@ export class MusicasComponent implements OnInit {
     }
 
     return String(formattedDuration).replace(",", ":")
+  }
+
+  searchMusica() {
+    this.musicasService.getMusicaByNameOrArtist(this.searchInput.value).subscribe((musicas: Musica[]) => {
+      this.foundMusics = musicas
+      this.searchButtomClickedSubject.next(true)
+    })
+  }
+
+  addMusic(index: number) {
+    this.musicasSubject.getValue().push(this.foundMusics[index])
+
+    this.playlist.musicas.push(this.foundMusics[index].id)
+
+    this.playlistsService.updatePlaylist(this.playlist).subscribe(() => {
+      this.musicAddedClickedSubject.next(true)
+    })
+  }
+
+  removeMusic(index: number) {
+    let index1 = 0
+
+    this.playlist.musicas.filter((value: number) => {
+      if (value == this.musicasSubject.getValue()[index].id) {
+        index1 = index
+      }
+    })
+
+    this.playlist.musicas.splice(index1, 1)
+
+    let index2 = this.musicasSubject.getValue().indexOf(this.musicasSubject.getValue()[index])
+
+    this.musicasSubject.getValue().splice(index2, 1)
+
+    this.playlistsService.updatePlaylist(this.playlist).subscribe(() => {
+      this.musicAddedClickedSubject.next(true)
+    })
   }
 }

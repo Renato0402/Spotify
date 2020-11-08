@@ -1,18 +1,83 @@
 <div class="container-fluid">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
-    <h2 id="fraseServ">Playlists</h2>
+    <h2 id="fraseServ" *ngIf="(isLoggedIn$ | async) == true">Minhas Playlists</h2>
+
+    <div class="card-columns" *ngIf="(isLoggedIn$ | async) == true">
+        <div class="card" *ngFor="let playlist of userPlaylists">
+            <a class="clicable" routerLink="/musicas/{{playlist.id}}">
+                <img class="card-img-top" src="{{playlist.capa}}" alt="jpg" *ngIf="playlist.capa != null">
+
+                <div class="card-img-top img-fluid">
+                    <div class="card-block">
+                        <h4 class="card-title">{{playlist.nome}}</h4>
+                    </div>
+                </div>
+            </a>
+        </div>
+    </div>
+
+    <h2 id="fraseServ">Playlists Públicas</h2>
 
     <div class="card-columns">
         <div class="card" *ngFor="let playlist of playlists">
             <a class="clicable" routerLink="/musicas/{{playlist.id}}">
-                <img class="card-img-top" src="{{playlist.capa}}" alt="jpg ">
+                <img class="card-img-top" src="{{playlist.capa}}" alt="jpg">
 
-                <div class="card-img-top img-fluid ">
-                    <div class="card-block ">
-                        <h4 class="card-title ">{{playlist.nome}}</h4>
+                <div class="card-img-top img-fluid">
+                    <div class="card-block">
+                        <h4 class="card-title">{{playlist.nome}}</h4>
                     </div>
                 </div>
             </a>
+        </div>
+    </div>
+</div>
+<a class="material-icons floating-btn" data-toggle="modal" data-target="#centralModalSm" *ngIf="(isLoggedIn$ | async) == true">add</a>
+<a class="material-icons floating-btn" data-toggle="modal" data-target="#loginRequest" *ngIf="(isLoggedIn$ | async) == false">add</a>
+
+<div class="modal fade" id="centralModalSm" tabindex="-1" role="dialog" aria-labelledby="newPlaylistModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-fluid" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title w-100" id="newPlaylistModalLabel">Crie uma nova Playlist</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span id="closeButtom" aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form [formGroup]="form" (ngSubmit)="criarPlaylist()">
+                <div class="modal-body">
+                    <div class="md-form">
+                        <div class="form-group col-md-10">
+                            <label for="playlistName">Insira o nome da nova playlist:</label>
+                            <input type="text" id="playlistName" formControlName="playlistName" class="form-control" placeholder="Nome da Playlist" required>
+                            <div *ngIf="playlistName.invalid && playlistName.touched">
+                                <small *ngIf="playlistName.errors?.required" class="text-danger">É necessário informar um
+                                nome para a playlist.</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button id="addButtom" type="submit" class="btn btn-success btn-sm" [disabled]="form.invalid">Criar Playlist</button>
+                    <button id="fecharButtom" type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Fechar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="loginRequest" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-sm modal-notify modal-danger" role="document">
+        <div class="modal-content text-center">
+            <div class="modal-header d-flex justify-content-center">
+                <p class="heading">Você não está logado. Deseja fazer login?</p>
+            </div>
+
+            <div id="loginRequestFooter" class="modal-footer">
+                <a routerLink="/entrar" class="btn btn-success" data-dismiss="modal">Sim</a>
+                <a type="button" class="btn btn-danger waves-effect" data-dismiss="modal">Não</a>
+            </div>
         </div>
     </div>
 </div>

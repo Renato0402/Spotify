@@ -34,12 +34,16 @@ export class UserProfileComponent implements OnInit {
     this.user = this.usersService.getLocalUser()
 
     this.fillForm()
+
+    document.getElementById("username").textContent = this.nome.value + " " + this.sobrenome.value
   }
 
   submit() {
     let updatedUser:Usuario = { id: this.user.id, nome: this.nome.value, sobrenome: this.sobrenome.value, email: this.email.value, senha: this.senha.value, dia: this.dia.value, mes: this.mes.value, ano: this.ano.value, sexo: this.sexo.value }
     
     this.usersService.updateUser(updatedUser).subscribe()
+
+    document.getElementById("username").textContent = this.nome.value + " " + this.sobrenome.value
   }
 
   get nome() {

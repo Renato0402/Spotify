@@ -19,21 +19,29 @@ export class PlaylistsService {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
   }
 
+  getPaylists(){
+    return this.httpClient.get<Playlist[]>(this.url)
+  }
+
   getPublicPlaylists(): Observable<Playlist[]> {
     return this.httpClient.get<Playlist[]>(this.url).pipe(map(items =>
       items.filter(item => item.isPublic)))
   }
 
-  getPublicPlaylistsFromUser(id: number): Observable<Playlist[]> {
+  getPlaylistsFromUser(id: string): Observable<Playlist[]> {
     return this.httpClient.get<Playlist[]>(this.url).pipe(map(items =>
-      items.filter(item => item.id == id)))
+      items.filter(item => item.userId == id)))
   }
 
   getPlaylistsById(id: number): Observable<Playlist> {
     return this.httpClient.get<Playlist>(this.url + '/' + id)
   }
 
-  savePlaylists(playlist: Playlist): Observable<Playlist> {
+  updatePlaylist(playlist: Playlist): Observable<Playlist> {
+    return this.httpClient.put<Playlist>(this.url + "/" + playlist.id, JSON.stringify(playlist), this.httpOptions)
+  }
+
+  addPlaylist(playlist: Playlist): Observable<Playlist> {
     return this.httpClient.post<Playlist>(this.url, JSON.stringify(playlist), this.httpOptions)
   }
 
