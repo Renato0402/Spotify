@@ -56,7 +56,7 @@
         }
     ],
     "publicPlaylists": [{
-            "id": 0,
+            "id": 1,
             "nome": "As 50 mais tocadas no mundo",
             "musicas": [
                 0,
@@ -69,7 +69,7 @@
             "userId": "0"
         },
         {
-            "id": 1,
+            "id": 2,
             "nome": "Knife Party",
             "musicas": [
                 4,
@@ -80,7 +80,7 @@
             "userId": "0"
         },
         {
-            "id": 2,
+            "id": 3,
             "nome": "As 50 mais tocadas no Brasil",
             "musicas": [
                 6,
@@ -91,7 +91,7 @@
             "userId": "0"
         },
         {
-            "id": 3,
+            "id": 4,
             "nome": "Só Track Boa 2020",
             "musicas": [
                 8,
@@ -103,7 +103,7 @@
             "userId": "0"
         },
         {
-            "id": 4,
+            "id": 5,
             "nome": "Trap Nation",
             "musicas": [
                 11,
@@ -116,7 +116,7 @@
             "userId": "0"
         },
         {
-            "id": 5,
+            "id": 6,
             "nome": "Trap-Rap",
             "musicas": [
                 15,
@@ -252,7 +252,7 @@
         },
         {
             "id": 15,
-            1 "nome": "Motorcycle Patches",
+            "nome": "Motorcycle Patches",
             "album": "HUNCHO JACK",
             "artista": "Travis Scott ft. Quavo",
             "duration": 186600,

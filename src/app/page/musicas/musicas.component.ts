@@ -7,6 +7,7 @@ import { Playlist } from 'src/app/entidades/playlist';
 import { PlaylistsService } from 'src/app/services/playlists.service';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { BehaviorSubject, Observable, of } from 'rxjs';
+import { delay } from 'rxjs/operators';
 
 @Component({
   selector: 'app-musicas',
@@ -202,10 +203,18 @@ export class MusicasComponent implements OnInit {
       this.playlistsService.deleteUserPlaylist(this.playlist).subscribe(() => {
 
         console.log(playlists)
-        playlists.forEach((value: Playlist) => {
-         
-          this.playlistsService.addPublicPlaylists(value).subscribe()
-        })
+        /*playlists.forEach((value: Playlist) => {
+          setTimeout(() => {  this.playlistsService.addPublicPlaylists(value).subscribe() }, 10);
+
+
+        })*/
+
+        this.playlistsService.addPublicPlaylists(playlists[0]).subscribe()
+        this.playlistsService.addPublicPlaylists(playlists[1]).subscribe()
+        this.playlistsService.addPublicPlaylists(playlists[2]).subscribe()
+        this.playlistsService.addPublicPlaylists(playlists[3]).subscribe()
+        this.playlistsService.addPublicPlaylists(playlists[4]).subscribe()
+        this.playlistsService.addPublicPlaylists(playlists[5]).subscribe()
 
         this.router.navigate(['/playlists']);
       })
