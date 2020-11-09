@@ -7,7 +7,9 @@ import { Playlist } from 'src/app/entidades/playlist';
 import { PlaylistsService } from 'src/app/services/playlists.service';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { BehaviorSubject, Observable, of } from 'rxjs';
-import { delay } from 'rxjs/operators';
+import { delay, map } from 'rxjs/operators';
+import { UsersService } from 'src/app/services/users.service';
+import { Usuario } from 'src/app/entidades/usuario';
 
 @Component({
   selector: 'app-musicas',
@@ -32,7 +34,7 @@ export class MusicasComponent implements OnInit {
   musicAddedClicked$: Observable<boolean>
   musicaToRemove
 
-  constructor(private playlistsService: PlaylistsService, musicasService: MusicasService, private router: Router, private activatedRoute: ActivatedRoute, private formBuilder: FormBuilder) {
+  constructor(private usersService: UsersService, private playlistsService: PlaylistsService, musicasService: MusicasService, private router: Router, private activatedRoute: ActivatedRoute, private formBuilder: FormBuilder) {
     this.musicasService = musicasService
     this.playlist = new Playlist()
     this.isPlayingMusic = false
@@ -65,7 +67,7 @@ export class MusicasComponent implements OnInit {
         }
       })
     } else {
-      this.playlistsService.getUserPlaylistsById(this.activatedRoute.snapshot.params.id).subscribe((playlist: Playlist) => {
+      /*this.playlistsService.getUserPlaylistsById(this.activatedRoute.snapshot.params.id).subscribe((playlist: Playlist) => {
         this.playlist = playlist
 
         if (playlist.musicas != null) {
@@ -75,6 +77,18 @@ export class MusicasComponent implements OnInit {
             })
           }
         }
+      })*/
+
+      this.usersService.getLocalUser().playlists.filter((value: Playlist) => {
+        if (value.id == this.activatedRoute.snapshot.params.id) {
+          this.playlist = value
+        }
+      })
+
+      this.playlist.musicas.forEach((value: number) => {
+        this.musicasService.getMusicaById(value).subscribe((musica: Musica) => {
+          this.musicasSubject.getValue().push(musica)
+        })
       })
     }
 
@@ -123,7 +137,7 @@ export class MusicasComponent implements OnInit {
         }
         this.audio = new Audio(this.musicasSubject.getValue()[index].audio);
         this.audio.play()
-        this.audio.volume = 0.5
+        this.audio.volume = 0.3
 
         this.isPlayingMusic = true
 
@@ -168,56 +182,67 @@ export class MusicasComponent implements OnInit {
   addMusic(index: number) {
     this.musicasSubject.getValue().push(this.foundMusics[index])
 
-    this.playlist.musicas.push(this.foundMusics[index].id)
-
-    this.playlistsService.updatePlaylist(this.playlist).subscribe(() => {
-      this.musicAddedClickedSubject.next(true)
-    })
-  }
-
-  removeMusic() {
-    let index1 = 0
-
-    this.playlist.musicas.filter((value: number) => {
-      if (value == this.musicasSubject.getValue()[this.musicaToRemove].id) {
-        index1 = this.musicaToRemove
+    let user = this.usersService.getLocalUser()
+    let index2
+    user.playlists.filter((value: Playlist, index: number) => {
+      if(value.id == this.playlist.id){
+        index2 = index
       }
     })
 
-    this.playlist.musicas.splice(index1, 1)
+    this.playlist.musicas.push(this.foundMusics[index].id)
 
-    let index2 = this.musicasSubject.getValue().indexOf(this.musicasSubject.getValue()[this.musicaToRemove])
+    user.playlists[index2] = this.playlist
 
-    this.musicasSubject.getValue().splice(index2, 1)
+    this.usersService.updateUser(user).subscribe()
 
-    this.playlistsService.updatePlaylist(this.playlist).subscribe(() => {
+    /*this.playlistsService.updatePlaylist(this.playlist).subscribe(() => {
       this.musicAddedClickedSubject.next(true)
+    })*/
+  }
+
+  removeMusic() {
+    this.playlist.musicas.splice(this.musicaToRemove, 1)
+
+    let index1
+
+    this.musicasSubject.getValue().filter((value: Musica, index: number) => {
+      if(index == this.musicaToRemove){
+        index1 = index
+      }
     })
+
+    this.musicasSubject.getValue().splice(index1, 1)
+
+    let user = this.usersService.getLocalUser()
+    let index2
+    user.playlists.filter((value: Playlist, index: number) => {
+      if(value.id == this.playlist.id){
+        index2 = index
+      }
+    })
+
+    user.playlists[index2] = this.playlist
+
+    this.usersService.updateUser(user).subscribe()
+
+    /*this.playlistsService.updatePlaylist(this.playlist).subscribe(() => {
+      this.musicAddedClickedSubject.next(true)
+    })*/
   }
 
 
 
   deletePlaylist() {
-    this.playlistsService.getPublicPlaylists().subscribe((playlists: Playlist[]) => {
+    let index = this.usersService.getLocalUser().playlists.indexOf(this.playlist)
 
-      this.playlistsService.deleteUserPlaylist(this.playlist).subscribe(() => {
+    let user = this.usersService.getLocalUser()
+    user.playlists.splice(index, 1)
 
-        console.log(playlists)
-        /*playlists.forEach((value: Playlist) => {
-          setTimeout(() => {  this.playlistsService.addPublicPlaylists(value).subscribe() }, 10);
+    this.usersService.updateUser(user).subscribe()
 
-
-        })*/
-
-        this.playlistsService.addPublicPlaylists(playlists[0]).subscribe()
-        this.playlistsService.addPublicPlaylists(playlists[1]).subscribe()
-        this.playlistsService.addPublicPlaylists(playlists[2]).subscribe()
-        this.playlistsService.addPublicPlaylists(playlists[3]).subscribe()
-        this.playlistsService.addPublicPlaylists(playlists[4]).subscribe()
-        this.playlistsService.addPublicPlaylists(playlists[5]).subscribe()
-
-        this.router.navigate(['/playlists']);
-      })
-    })
+    this.router.navigate(['/playlists']);
+  
+    //this.playlistsService.deleteUserPlaylist(this.playlist).subscribe(() => {
   }
 }

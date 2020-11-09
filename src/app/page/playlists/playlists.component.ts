@@ -6,6 +6,7 @@ import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
 import { map } from 'rxjs/operators';
 import { Musica } from 'src/app/entidades/musica';
 import { Playlist } from 'src/app/entidades/playlist';
+import { Usuario } from 'src/app/entidades/usuario';
 import { PlaylistsService } from 'src/app/services/playlists.service';
 import { UsersService } from 'src/app/services/users.service';
 
@@ -20,7 +21,7 @@ export class PlaylistsComponent implements OnInit {
   userPlaylists$: Observable<Playlist[]>
   form: FormGroup
   isLoggedIn$: Observable<boolean>;
-  userId: string
+  user: Usuario
 
   constructor(private usersService: UsersService, private playlistsService: PlaylistsService, private formBuilder: FormBuilder, private httpClient: HttpClient) {
     this.userPlaylistsSubject = new BehaviorSubject<Playlist[]>([])
@@ -35,7 +36,7 @@ export class PlaylistsComponent implements OnInit {
     })
 
     if (this.usersService.getLocalUser() != null) {
-      this.userId = this.usersService.getLocalUser().id
+      this.user = this.usersService.getLocalUser()
 
       this.updateUserPlaylists()
     }
@@ -53,23 +54,21 @@ export class PlaylistsComponent implements OnInit {
     let newPlaylist
 
     if (this.userPlaylistsSubject.getValue()[0] != undefined) { 
-      newPlaylist = { id: this.userPlaylistsSubject.getValue()[this.userPlaylistsSubject.getValue().length - 1].id+1, nome: this.playlistName.value, musicas: [] as number[], capa: "assets/images/capas/KnifeParty.jpg", isPublic: false, userId: this.userId } 
+      newPlaylist = { id: this.userPlaylistsSubject.getValue()[this.userPlaylistsSubject.getValue().length - 1].id+1, nome: this.playlistName.value, musicas: [] as number[], capa: "assets/images/capas/spotify-playlist-default-logo.png", isPublic: false, userId: this.user.id } 
     } else { 
-      newPlaylist = { id: this.playlists.length+1, nome: this.playlistName.value, musicas: [] as number[], capa: "assets/images/capas/KnifeParty.jpg", isPublic: false, userId: this.userId } 
+      newPlaylist = { id: this.playlists.length+1, nome: this.playlistName.value, musicas: [] as number[], capa: "assets/images/capas/spotify-playlist-default-logo.png", isPublic: false, userId: this.user.id }
     }
 
+    this.user.playlists.push(newPlaylist)
 
-
-    this.playlistsService.addPlaylist(newPlaylist).subscribe(() => {
-      this.userPlaylistsSubject.getValue().push(newPlaylist)
-
-      this.form.reset()
-    })
+    this.usersService.updateUser(this.user).subscribe()
   }
 
   updateUserPlaylists() {
-    this.playlistsService.getPlaylistsFromUser(this.userId).subscribe((playlists: Playlist[]) => {
+    this.userPlaylistsSubject.next(this.user.playlists)
+
+    /*this.playlistsService.getPlaylistsFromUser(this.user.id).subscribe((playlists: Playlist[]) => {
       this.userPlaylistsSubject.next(playlists)
-    })
+    })*/
   }
 }

@@ -1,3 +1,5 @@
+import { Playlist } from './playlist'
+
 export class Usuario {
     id: string
     nome: string
@@ -8,4 +10,5 @@ export class Usuario {
     mes: Number
     ano: Number
     sexo: string
+    playlists: Playlist[]
 }

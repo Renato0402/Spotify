@@ -35,7 +35,7 @@ export class CadastroComponent implements OnInit {
   }
 
   submit() {
-    var user: Usuario = { id: uuidv4(), nome: this.nome.value, sobrenome: this.sobrenome.value, email: this.email.value, senha: this.senha.value, dia: this.dia.value, mes: this.mes.value, ano: this.ano.value, sexo: this.sexo.value };
+    var user: Usuario = { id: uuidv4(), nome: this.nome.value, sobrenome: this.sobrenome.value, email: this.email.value, senha: this.senha.value, dia: this.dia.value, mes: this.mes.value, ano: this.ano.value, sexo: this.sexo.value, playlists: [] };
 
     this.usersService.addUser(user).subscribe(() => {
       this.form.reset()

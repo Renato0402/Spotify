@@ -70,6 +70,6 @@ export class UsersService {
   }
 
   getLocalUser(){
-    return JSON.parse(localStorage.getItem('user'))
+    return JSON.parse(localStorage.getItem('user')) as Usuario
   }
 }

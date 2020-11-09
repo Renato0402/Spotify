@@ -41,13 +41,15 @@ export class UserProfileComponent implements OnInit {
 
     document.getElementById("username").textContent = this.nome.value + " " + this.sobrenome.value
 
-    this.playlistsService.getPlaylistsFromUser(this.user.id).subscribe((playlists: Playlist[]) =>{
+    this.userPlaylists = this.user.playlists
+
+    /*this.playlistsService.getPlaylistsFromUser(this.user.id).subscribe((playlists: Playlist[]) =>{
         this.userPlaylists = playlists
-    })
+    })*/
   }
 
   submit() {
-    let updatedUser:Usuario = { id: this.user.id, nome: this.nome.value, sobrenome: this.sobrenome.value, email: this.email.value, senha: this.senha.value, dia: this.dia.value, mes: this.mes.value, ano: this.ano.value, sexo: this.sexo.value }
+    let updatedUser:Usuario = { id: this.user.id, nome: this.nome.value, sobrenome: this.sobrenome.value, email: this.email.value, senha: this.senha.value, dia: this.dia.value, mes: this.mes.value, ano: this.ano.value, sexo: this.sexo.value, playlists: this.user.playlists}
     
     this.usersService.updateUser(updatedUser).subscribe()
 
