@@ -15,8 +15,6 @@ import { MusicasComponent } from './page/musicas/musicas.component';
 import { HttpClientModule } from '@angular/common/http';
 import { CadastroComponent } from './page/cadastro/cadastro.component';
 import { UserProfileComponent } from './page/user-profile/user-profile.component';
-import { AuthInterceptor } from './httpInterceptor/authInterceptor';
-import { ErrorInterceptor } from './httpInterceptor/ErrorInterceptor';
 
 @NgModule({
   declarations: [
@@ -39,7 +37,7 @@ import { ErrorInterceptor } from './httpInterceptor/ErrorInterceptor';
     HttpClientModule,
     CommonModule
   ],
-  providers: [AuthInterceptor, ErrorInterceptor],
+  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

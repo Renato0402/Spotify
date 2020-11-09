@@ -6,15 +6,15 @@ export class PlaylistsMock {
 
     constructor() {
         this.playlists = []
+        
+        this.playlists[0] = {id: 0, nome: "As 50 mais tocadas no mundo", musicas: [], capa: "assets/images/capas/Top50Global.jpg", isPublic: true, userId: "0"}
+        this.playlists[1] = { id: 1, nome: "Knife Party", musicas: [], capa: "assets/images/capas/KnifeParty.jpg", isPublic: true, userId: "0"}
+        this.playlists[2] = { id: 2, nome: "As 50 mais tocadas no Brasil", musicas: [], capa: "assets/images/capas/Top50Brasil.jpg", isPublic: true, userId: "0"}
+        this.playlists[3] = { id: 3, nome: "Só Track Boa 2020", musicas: [], capa: "assets/images/capas/SoTrackBoa.jpg", isPublic: true, userId: "0"}
+        this.playlists[4] = { id: 4, nome: "Trap Nation", musicas: [], capa: "assets/images/capas/Trap Nation.jpg", isPublic: true, userId: "0"}
+        this.playlists[5] = { id: 5, nome: "Trap-Rap", musicas: [], capa: "assets/images/capas/Trap-Rap.jpg", isPublic: true, userId: "0"}
 
-        this.playlists[0] = {id: 0, nome: "As 50 mais tocadas no mundo", musicas: [], capa: "assets/images/capas/Top50Global.jpg"}
-        this.playlists[1] = { id: 1, nome: "Knife Party", musicas: [], capa: "assets/images/capas/KnifeParty.jpg" }
-        this.playlists[2] = { id: 2, nome: "As 50 mais tocadas no Brasil", musicas: [], capa: "assets/images/capas/Top50Brasil.jpg" }
-        this.playlists[3] = { id: 3, nome: "Só Track Boa 2020", musicas: [], capa: "assets/images/capas/SoTrackBoa.jpg" }
-        this.playlists[4] = { id: 4, nome: "Trap Nation", musicas: [], capa: "assets/images/capas/Trap Nation.jpg" }
-        this.playlists[5] = { id: 5, nome: "Trap-Rap", musicas: [], capa: "assets/images/capas/Trap-Rap.jpg" }
-
-        this.playlists[0].musicas[0] = { id: 0, nome: "24kGoldn - Mood (feat. iann dior)", album: "Unknown", artista: "24kGoldn", duration: 132600, audio: "assets/musics/Playlists/As 50 mais tocadas no mundo/24kGoldn - Mood (feat. iann dior).mp3" }
+        /*this.playlists[0].musicas[0] = { id: 0, nome: "24kGoldn - Mood (feat. iann dior)", album: "Unknown", artista: "24kGoldn", duration: 132600, audio: "assets/musics/Playlists/As 50 mais tocadas no mundo/24kGoldn - Mood (feat. iann dior).mp3" }
         this.playlists[0].musicas[1] = { id: 1, nome: "BTS - Dynamite", album: "Dynamite (NightTime Version)", artista: "BTS", duration: 190200, audio: "assets/musics/Playlists/As 50 mais tocadas no mundo/BTS - Dynamite.mp3" }
         this.playlists[0].musicas[2] = { id: 2, nome: "Internet Money - Lemonade (feat. Gunna, Don Toliver & NAV)", album: "B4 The Storm", artista: "Internet Money", duration: 189600, audio: "assets/musics/Playlists/As 50 mais tocadas no mundo/Internet Money - Lemonade (feat. Gunna, Don Toliver & NAV).mp3" }
         this.playlists[0].musicas[3] = { id: 3, nome: "Justin Bieber - Holy (feat. Chance the Rapper)", album: "Holy", artista: "Justin Bieber", duration: 199200, audio: "assets/musics/Playlists/As 50 mais tocadas no mundo/Justin Bieber - Holy (feat. Chance the Rapper).mp3" }
@@ -37,6 +37,6 @@ export class PlaylistsMock {
         this.playlists[5].musicas[0] = { id: 0, nome: "Motorcycle Patches", album: "HUNCHO JACK", artista: "Travis Scott ft. Quavo", duration: 186600, audio: "/assets/musics/Playlists/Trap-Rap/HUNCHO JACK - Motorcycle Patches.mp3" }
         this.playlists[5].musicas[1] = { id: 1, nome: "Eye 2 Eye", album: "HUNCHO JACK", artista: "Travis Scott ft. Quavo, Takeoff", duration: 187200, audio: "/assets/musics/Playlists/Trap-Rap/HUNCHO JACK, Travis Scott, Quavo feat. Takeoff - Eye 2 Eye.mp3" }
         this.playlists[5].musicas[2] = { id: 2, nome: "goosebumps", album: "birds in the trap sing mcknight", artista: "Travis Scott", duration: 242400, audio: "/assets/musics/Playlists/Trap-Rap/Travis Scott - goosebumps.mp3" }
-        this.playlists[5].musicas[3] = { id: 3, nome: "SICKO MODE", album: "Astroworld", artista: "Travis Scott", duration: 307800, audio: "/assets/musics/Playlists/Trap-Rap/Travis Scott - SICKO MODE.mp3" }
+        this.playlists[5].musicas[3] = { id: 3, nome: "SICKO MODE", album: "Astroworld", artista: "Travis Scott", duration: 307800, audio: "/assets/musics/Playlists/Trap-Rap/Travis Scott - SICKO MODE.mp3" }*/
     }
 }

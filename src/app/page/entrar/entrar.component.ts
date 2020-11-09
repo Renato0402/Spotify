@@ -2,9 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Usuario } from 'src/app/entidades/usuario';
-import { AuthInterceptor } from 'src/app/httpInterceptor/authInterceptor';
-import { AuthService } from 'src/app/services/auth.service';
-import { TokenService } from 'src/app/services/token.service';
 import { UsersService } from 'src/app/services/users.service';
 
 @Component({
@@ -16,7 +13,7 @@ export class EntrarComponent implements OnInit {
   form: FormGroup
   isLogged
 
-  constructor(private formBuilder: FormBuilder, private usersService: UsersService, private router: Router, private authInterceptor: AuthInterceptor, private authService: AuthService, private tokenService: TokenService) {
+  constructor(private formBuilder: FormBuilder, private usersService: UsersService, private router: Router) {
     this.isLogged = false
   }
 

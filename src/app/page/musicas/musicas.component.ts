@@ -51,17 +51,31 @@ export class MusicasComponent implements OnInit {
       "searchInput": new FormControl('', Validators.required)
     })
 
-    this.playlistsService.getPlaylistsById(this.activatedRoute.snapshot.params.id).subscribe((playlist: Playlist) => {
-      this.playlist = playlist
+    if (this.activatedRoute.snapshot.params.id < 7) {
+      this.playlistsService.getPublicPlaylistsById(this.activatedRoute.snapshot.params.id).subscribe((playlist: Playlist) => {
+        this.playlist = playlist
 
-      if (playlist.musicas != null) {
-        for (let i = 0; i < this.playlist.musicas.length; i++) {
-          this.musicasService.getMusicaById(this.playlist.musicas[i]).subscribe((musica: Musica) => {
-            this.musicasSubject.getValue().push(musica)
-          })
+        if (playlist.musicas != null) {
+          for (let i = 0; i < this.playlist.musicas.length; i++) {
+            this.musicasService.getMusicaById(this.playlist.musicas[i]).subscribe((musica: Musica) => {
+              this.musicasSubject.getValue().push(musica)
+            })
+          }
         }
-      }
-    })
+      })
+    } else {
+      this.playlistsService.getUserPlaylistsById(this.activatedRoute.snapshot.params.id).subscribe((playlist: Playlist) => {
+        this.playlist = playlist
+
+        if (playlist.musicas != null) {
+          for (let i = 0; i < this.playlist.musicas.length; i++) {
+            this.musicasService.getMusicaById(this.playlist.musicas[i]).subscribe((musica: Musica) => {
+              this.musicasSubject.getValue().push(musica)
+            })
+          }
+        }
+      })
+    }
 
     this.router.events.subscribe((event) => {
       if (event instanceof NavigationEnd && event.url != "/musicas" && this.isOnPage && this.isPlayingMusic) {
@@ -180,11 +194,21 @@ export class MusicasComponent implements OnInit {
     })
   }
 
-  deletePlaylist() {
-    console.log(this.playlist)
 
-    this.playlistsService.deletePlaylist(this.playlist.id).subscribe(() => { 
-      this.router.navigate(['/playlists'])
+
+  deletePlaylist() {
+    this.playlistsService.getPublicPlaylists().subscribe((playlists: Playlist[]) => {
+
+      this.playlistsService.deleteUserPlaylist(this.playlist).subscribe(() => {
+
+        console.log(playlists)
+        playlists.forEach((value: Playlist) => {
+         
+          this.playlistsService.addPublicPlaylists(value).subscribe()
+        })
+
+        this.router.navigate(['/playlists']);
+      })
     })
   }
 }

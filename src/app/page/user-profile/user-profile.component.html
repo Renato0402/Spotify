@@ -20,38 +20,14 @@
                     <div class="panel-title text-center">Minhas Playlists</div>
                 </div>
                 <div class="panel-body">
-                    <div class="media">
+                    <div class="media" *ngFor="let playlist of userPlaylists">
                         <div class="media-left media-middle">
                             <a href="#">
-                                <img class="media-object img-circle img-thumbnail thumb48" src="assets/images/icons/user.jpg" alt="playlist">
+                                <img class="media-object img-circle img-thumbnail thumb48" src="{{playlist.capa}}" alt="playlist">
                             </a>
                         </div>
                         <div class="media-body pt-sm">
-                            <div class="text-bold">Playlist 1</div>
-                        </div>
-                    </div>
-                    <div class="media">
-                        <div class="media-left media-middle">
-                            <a href="#"><img class="media-object img-circle img-thumbnail thumb48" src="assets/images/icons/user.jpg" alt="playlist"></a>
-                        </div>
-                        <div class="media-body pt-sm">
-                            <div class="text-bold">Playlist 2</div>
-                        </div>
-                    </div>
-                    <div class="media">
-                        <div class="media-left media-middle">
-                            <a href="#"><img class="media-object img-circle img-thumbnail thumb48" src="assets/images/icons/user.jpg" alt="playlist"></a>
-                        </div>
-                        <div class="media-body pt-sm">
-                            <div class="text-bold">Playlist 3</div>
-                        </div>
-                    </div>
-                    <div class="media">
-                        <div class="media-left media-middle">
-                            <a href="#"><img class="media-object img-circle img-thumbnail thumb48" src="assets/images/icons/user.jpg" alt="playlist"></a>
-                        </div>
-                        <div class="media-body pt-sm">
-                            <div class="text-bold">Playlist 4</div>
+                            <div class="text-bold">{{playlist.nome}}</div>
                         </div>
                     </div>
                 </div>

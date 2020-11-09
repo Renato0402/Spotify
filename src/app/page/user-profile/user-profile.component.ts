@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { BehaviorSubject } from 'rxjs';
+import { Playlist } from 'src/app/entidades/playlist';
 import { Usuario } from 'src/app/entidades/usuario';
+import { PlaylistsService } from 'src/app/services/playlists.service';
 import { UsersService } from 'src/app/services/users.service';
 
 @Component({
@@ -12,8 +15,9 @@ export class UserProfileComponent implements OnInit {
   form: FormGroup
   user: Usuario
   Data: number = Date.now()
+  userPlaylists: Playlist[]
 
-  constructor(private formBuilder: FormBuilder, private usersService: UsersService) {}
+  constructor(private formBuilder: FormBuilder, private usersService: UsersService, private playlistsService: PlaylistsService) {}
 
   ngOnInit(): void {
     this.form = this.formBuilder.group({
@@ -36,6 +40,10 @@ export class UserProfileComponent implements OnInit {
     this.fillForm()
 
     document.getElementById("username").textContent = this.nome.value + " " + this.sobrenome.value
+
+    this.playlistsService.getPlaylistsFromUser(this.user.id).subscribe((playlists: Playlist[]) =>{
+        this.userPlaylists = playlists
+    })
   }
 
   submit() {

@@ -9,43 +9,52 @@ import { Playlist } from '../entidades/playlist';
   providedIn: 'root'
 })
 export class PlaylistsService {
-  url;
+  urlPublic
+  urlUser
 
   constructor(private httpClient: HttpClient) {
-    this.url = "http://localhost:3000/playlists"
+    this.urlPublic = "http://localhost:3000/publicPlaylists"
+    this.urlUser = "http://localhost:3000/userPlaylists"
   }
 
   httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
   }
 
-  getPaylists(){
-    return this.httpClient.get<Playlist[]>(this.url)
+  getPaylists() {
+    return this.httpClient.get<Playlist[]>(this.urlPublic)
   }
 
-  getPublicPlaylists(): Observable<Playlist[]> {
-    return this.httpClient.get<Playlist[]>(this.url).pipe(map(items =>
-      items.filter(item => item.isPublic)))
+  getPublicPlaylists(): Observable<any> {
+    return this.httpClient.get<any>(this.urlPublic)
   }
 
   getPlaylistsFromUser(id: string): Observable<Playlist[]> {
-    return this.httpClient.get<Playlist[]>(this.url).pipe(map(items =>
+    return this.httpClient.get<Playlist[]>(this.urlUser).pipe(map(items =>
       items.filter(item => item.userId == id)))
   }
 
-  getPlaylistsById(id: number): Observable<Playlist> {
-    return this.httpClient.get<Playlist>(this.url + '/' + id)
+  getPublicPlaylistsById(id: number): Observable<Playlist> {
+    return this.httpClient.get<Playlist>(this.urlPublic + '/' + id)
+  }
+
+  getUserPlaylistsById(id: number): Observable<Playlist> {
+    return this.httpClient.get<Playlist>(this.urlUser + '/' + id)
   }
 
   updatePlaylist(playlist: Playlist): Observable<Playlist> {
-    return this.httpClient.put<Playlist>(this.url + "/" + playlist.id, JSON.stringify(playlist), this.httpOptions)
+    return this.httpClient.put<Playlist>(this.urlUser + "/" + playlist.id, JSON.stringify(playlist), this.httpOptions)
   }
 
   addPlaylist(playlist: Playlist): Observable<Playlist> {
-    return this.httpClient.post<Playlist>(this.url, JSON.stringify(playlist), this.httpOptions)
+    return this.httpClient.post<Playlist>(this.urlUser, JSON.stringify(playlist), this.httpOptions)
   }
 
-  deletePlaylist(id: number) {
-    return this.httpClient.delete(this.url + '/' + id, this.httpOptions)
+  addPublicPlaylists(playlist: Playlist): Observable<Playlist> {
+    return this.httpClient.post<Playlist>(this.urlPublic, JSON.stringify(playlist), this.httpOptions)
+  }
+
+  deleteUserPlaylist(playlist: Playlist) {
+    return this.httpClient.delete<Playlist>(this.urlUser + '/' + playlist.id, this.httpOptions)
   }
 }

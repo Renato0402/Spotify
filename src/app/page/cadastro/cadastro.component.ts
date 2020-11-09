@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Usuario } from 'src/app/entidades/usuario';
-import { AuthService } from 'src/app/services/auth.service';
 import { UsersService } from 'src/app/services/users.service';
 import { v4 as uuidv4 } from 'uuid';
 
@@ -15,7 +14,7 @@ export class CadastroComponent implements OnInit {
   form: FormGroup
   Data: number = Date.now()
 
-  constructor(private formBuilder: FormBuilder, private usersService: UsersService, private authService: AuthService, private router: Router) {
+  constructor(private formBuilder: FormBuilder, private usersService: UsersService, private router: Router) {
   }
 
   ngOnInit(): void {

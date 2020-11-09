@@ -1,10 +1,10 @@
 <div class="container-fluid">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
-    <h2 id="fraseServ" *ngIf="(isLoggedIn$ | async) == true">Minhas Playlists</h2>
+    <h2 id="fraseServ" *ngIf="(isLoggedIn$ | async) == true && (userPlaylists$  | async).length > 0">Minhas Playlists</h2>
 
     <div class="card-columns" *ngIf="(isLoggedIn$ | async) == true">
-        <div class="card" *ngFor="let playlist of userPlaylists">
+        <div class="card" *ngFor="let playlist of userPlaylists$  | async">
             <a class="clicable" routerLink="/musicas/{{playlist.id}}">
                 <img class="card-img-top" src="{{playlist.capa}}" alt="jpg" *ngIf="playlist.capa != null">
 
@@ -45,7 +45,7 @@
                     <span id="closeButtom" aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <form [formGroup]="form" (ngSubmit)="criarPlaylist()">
+            <form [formGroup]="form">
                 <div class="modal-body">
                     <div class="md-form">
                         <div class="form-group col-md-10">
@@ -59,7 +59,7 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button id="addButtom" type="submit" class="btn btn-success btn-sm" [disabled]="form.invalid">Criar Playlist</button>
+                    <button id="addButtom" type="submit" class="btn btn-success btn-sm" [disabled]="form.invalid" (click)="criarPlaylist()" data-dismiss="modal">Criar Playlist</button>
                     <button id="fecharButtom" type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Fechar</button>
                 </div>
             </form>
