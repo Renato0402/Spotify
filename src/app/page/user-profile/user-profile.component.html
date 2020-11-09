@@ -140,12 +140,24 @@
                             </div>
                             <div class="form-row">
                                 <div class="form-group col-md-4">
-                                    <button id="botao" type="submit" class="btn btn-primary" [disabled]="form.invalid">Atualizar</button>
+                                    <button id="botao" type="submit" class="btn btn-primary" [disabled]="form.invalid" data-toggle="modal" data-target="#updateFeedBackModal">Atualizar</button>
                                 </div>
                             </div>
                         </form>
-
                     </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="updateFeedBackModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-sm modal-notify modal-danger" role="document">
+            <div class="modal-content text-center">
+                <div class="modal-header d-flex justify-content-center">
+                    <p class="heading">Suas informações foram atualizadas com sucesso!</p>
+                </div>
+                <div id="updateFeedBackModalFooter" class="modal-footer">
+                    <a type="button" class="btn btn-success waves-effect" data-dismiss="modal">OK</a>
                 </div>
             </div>
         </div>

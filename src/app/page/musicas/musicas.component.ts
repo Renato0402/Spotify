@@ -30,8 +30,6 @@ export class MusicasComponent implements OnInit {
   isOnPage = true
   searchButtomClickedSubject: BehaviorSubject<boolean>
   searchButtomClicked$: Observable<boolean>
-  musicAddedClickedSubject: BehaviorSubject<boolean>
-  musicAddedClicked$: Observable<boolean>
   musicaToRemove
 
   constructor(private usersService: UsersService, private playlistsService: PlaylistsService, musicasService: MusicasService, private router: Router, private activatedRoute: ActivatedRoute, private formBuilder: FormBuilder) {
@@ -43,8 +41,6 @@ export class MusicasComponent implements OnInit {
     this.musicas$ = this.musicasSubject.asObservable()
     this.searchButtomClickedSubject = new BehaviorSubject<boolean>(false)
     this.searchButtomClicked$ = this.searchButtomClickedSubject.asObservable()
-    this.musicAddedClickedSubject = new BehaviorSubject<boolean>(false)
-    this.musicAddedClicked$ = this.searchButtomClickedSubject.asObservable()
   }
 
   ngOnInit(): void {
@@ -54,7 +50,7 @@ export class MusicasComponent implements OnInit {
       "searchInput": new FormControl('', Validators.required)
     })
 
-    if (this.activatedRoute.snapshot.params.id < 7) {
+    if (this.activatedRoute.snapshot.params.id < 6) {
       this.playlistsService.getPublicPlaylistsById(this.activatedRoute.snapshot.params.id).subscribe((playlist: Playlist) => {
         this.playlist = playlist
 
@@ -67,18 +63,6 @@ export class MusicasComponent implements OnInit {
         }
       })
     } else {
-      /*this.playlistsService.getUserPlaylistsById(this.activatedRoute.snapshot.params.id).subscribe((playlist: Playlist) => {
-        this.playlist = playlist
-
-        if (playlist.musicas != null) {
-          for (let i = 0; i < this.playlist.musicas.length; i++) {
-            this.musicasService.getMusicaById(this.playlist.musicas[i]).subscribe((musica: Musica) => {
-              this.musicasSubject.getValue().push(musica)
-            })
-          }
-        }
-      })*/
-
       this.usersService.getLocalUser().playlists.filter((value: Playlist) => {
         if (value.id == this.activatedRoute.snapshot.params.id) {
           this.playlist = value
@@ -195,10 +179,6 @@ export class MusicasComponent implements OnInit {
     user.playlists[index2] = this.playlist
 
     this.usersService.updateUser(user).subscribe()
-
-    /*this.playlistsService.updatePlaylist(this.playlist).subscribe(() => {
-      this.musicAddedClickedSubject.next(true)
-    })*/
   }
 
   removeMusic() {
@@ -225,13 +205,7 @@ export class MusicasComponent implements OnInit {
     user.playlists[index2] = this.playlist
 
     this.usersService.updateUser(user).subscribe()
-
-    /*this.playlistsService.updatePlaylist(this.playlist).subscribe(() => {
-      this.musicAddedClickedSubject.next(true)
-    })*/
   }
-
-
 
   deletePlaylist() {
     let index = this.usersService.getLocalUser().playlists.indexOf(this.playlist)
@@ -243,6 +217,6 @@ export class MusicasComponent implements OnInit {
 
     this.router.navigate(['/playlists']);
   
-    //this.playlistsService.deleteUserPlaylist(this.playlist).subscribe(() => {
+    //this.playlistsService.deleteUserPlaylist(this.playlist).subscribe()
   }
 }

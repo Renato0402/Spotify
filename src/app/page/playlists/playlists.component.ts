@@ -56,7 +56,7 @@ export class PlaylistsComponent implements OnInit {
     if (this.userPlaylistsSubject.getValue()[0] != undefined) { 
       newPlaylist = { id: this.userPlaylistsSubject.getValue()[this.userPlaylistsSubject.getValue().length - 1].id+1, nome: this.playlistName.value, musicas: [] as number[], capa: "assets/images/capas/spotify-playlist-default-logo.png", isPublic: false, userId: this.user.id } 
     } else { 
-      newPlaylist = { id: this.playlists.length+1, nome: this.playlistName.value, musicas: [] as number[], capa: "assets/images/capas/spotify-playlist-default-logo.png", isPublic: false, userId: this.user.id }
+      newPlaylist = { id: this.playlists.length, nome: this.playlistName.value, musicas: [] as number[], capa: "assets/images/capas/spotify-playlist-default-logo.png", isPublic: false, userId: this.user.id }
     }
 
     this.user.playlists.push(newPlaylist)

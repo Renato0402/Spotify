@@ -33,8 +33,27 @@
         </div>
     </div>
 </div>
-<a class="material-icons floating-btn" data-toggle="modal" data-target="#centralModalSm" *ngIf="(isLoggedIn$ | async) == true">add</a>
-<a class="material-icons floating-btn" data-toggle="modal" data-target="#loginRequest" *ngIf="(isLoggedIn$ | async) == false">add</a>
+
+<div class="fab-container">
+    <div class="fab fab-icon-holder">
+        <i class="material-icons">add</i>
+    </div>
+
+    <ul class="fab-options">
+        <li *ngIf="(isLoggedIn$ | async) == true">
+            <span class="fab-label">Adicionar Playlist</span>
+            <div class="fab-icon-holder" data-toggle="modal" data-target="#centralModalSm">
+                <i class="material-icons">add</i>
+            </div>
+        </li>
+        <li *ngIf="(isLoggedIn$ | async) == false">
+            <span class="fab-label">Adicionar Playlist</span>
+            <div class="fab-icon-holder" data-toggle="modal" data-target="#loginRequest">
+                <i class="material-icons">add</i>
+            </div>
+        </li>
+    </ul>
+</div>
 
 <div class="modal fade" id="centralModalSm" tabindex="-1" role="dialog" aria-labelledby="newPlaylistModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-fluid" role="document">
