@@ -208,7 +208,13 @@ export class MusicasComponent implements OnInit {
   }
 
   deletePlaylist() {
-    let index = this.usersService.getLocalUser().playlists.indexOf(this.playlist)
+    let index
+
+    this.usersService.getLocalUser().playlists.filter((value: Playlist, i: number) => {
+      if(value.id == this.playlist.id){
+        index = i
+      }
+    })
 
     let user = this.usersService.getLocalUser()
     user.playlists.splice(index, 1)

@@ -12,16 +12,8 @@
       "sexo": "Masculino",
       "playlists": [
         {
-          "id": 6,
-          "nome": "a",
-          "musicas": [],
-          "capa": "assets/images/capas/spotify-playlist-default-logo.png",
-          "isPublic": false,
-          "userId": "863cf984-2bf1-4a97-9c6a-0db96e3bd2cd"
-        },
-        {
-          "id": 7,
-          "nome": "aaaaaaa",
+          "id": 8,
+          "nome": "5",
           "musicas": [],
           "capa": "assets/images/capas/spotify-playlist-default-logo.png",
           "isPublic": false,
