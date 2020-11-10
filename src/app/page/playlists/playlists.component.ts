@@ -1,4 +1,3 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
 import { Observable } from 'rxjs';
@@ -23,7 +22,7 @@ export class PlaylistsComponent implements OnInit {
   isLoggedIn$: Observable<boolean>;
   user: Usuario
 
-  constructor(private usersService: UsersService, private playlistsService: PlaylistsService, private formBuilder: FormBuilder, private httpClient: HttpClient) {
+  constructor(private usersService: UsersService, private playlistsService: PlaylistsService, private formBuilder: FormBuilder) {
     this.userPlaylistsSubject = new BehaviorSubject<Playlist[]>([])
     this.userPlaylists$ = this.userPlaylistsSubject.asObservable()
   }
@@ -66,9 +65,5 @@ export class PlaylistsComponent implements OnInit {
 
   updateUserPlaylists() {
     this.userPlaylistsSubject.next(this.user.playlists)
-
-    /*this.playlistsService.getPlaylistsFromUser(this.user.id).subscribe((playlists: Playlist[]) => {
-      this.userPlaylistsSubject.next(playlists)
-    })*/
   }
 }

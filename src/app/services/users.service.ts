@@ -57,7 +57,6 @@ export class UsersService {
   login(email: string, password: string) {
     this.checkPassword(email, password).subscribe((user: Usuario[]) => {
       localStorage.setItem('user', JSON.stringify(user[0]));
-      //this.user.next(String(user))
       this.loggedIn.next(true)
       this.router.navigate(['/']);
     })

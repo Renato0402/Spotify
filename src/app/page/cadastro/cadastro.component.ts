@@ -41,11 +41,6 @@ export class CadastroComponent implements OnInit {
       this.form.reset()
       this.router.navigate(['/entrar']);
     })
-
-    /*this.authService.register(this.email.value, this.senha.value).subscribe(() => {
-      this.form.reset()
-      this.router.navigate(['/entrar']);
-    })*/
   }
 
   get nome() {

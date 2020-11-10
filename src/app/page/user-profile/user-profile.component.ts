@@ -17,7 +17,7 @@ export class UserProfileComponent implements OnInit {
   Data: number = Date.now()
   userPlaylists: Playlist[]
 
-  constructor(private formBuilder: FormBuilder, private usersService: UsersService, private playlistsService: PlaylistsService) {}
+  constructor(private formBuilder: FormBuilder, private usersService: UsersService) {}
 
   ngOnInit(): void {
     this.form = this.formBuilder.group({
@@ -42,10 +42,6 @@ export class UserProfileComponent implements OnInit {
     document.getElementById("username").textContent = this.nome.value + " " + this.sobrenome.value
 
     this.userPlaylists = this.user.playlists
-
-    /*this.playlistsService.getPlaylistsFromUser(this.user.id).subscribe((playlists: Playlist[]) =>{
-        this.userPlaylists = playlists
-    })*/
   }
 
   submit() {

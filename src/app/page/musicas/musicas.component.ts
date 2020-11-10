@@ -219,10 +219,8 @@ export class MusicasComponent implements OnInit {
     let user = this.usersService.getLocalUser()
     user.playlists.splice(index, 1)
 
-    this.usersService.updateUser(user).subscribe()
-
-    this.router.navigate(['/playlists']);
-  
-    //this.playlistsService.deleteUserPlaylist(this.playlist).subscribe()
+    this.usersService.updateUser(user).subscribe(()=>{
+      this.router.navigate(['/playlists'])
+    })
   }
 }

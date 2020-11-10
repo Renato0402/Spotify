@@ -43,12 +43,27 @@
       "sexo": "Masculino",
       "playlists": [
         {
-          "id": 6,
-          "nome": "a",
+          "id": 7,
+          "nome": "z",
           "musicas": [
-            8,
             4
           ],
+          "capa": "assets/images/capas/spotify-playlist-default-logo.png",
+          "isPublic": false,
+          "userId": "d64eaf8b-3357-4473-ae45-37459bf4a7d0"
+        },
+        {
+          "id": 8,
+          "nome": "sefsfe",
+          "musicas": [],
+          "capa": "assets/images/capas/spotify-playlist-default-logo.png",
+          "isPublic": false,
+          "userId": "d64eaf8b-3357-4473-ae45-37459bf4a7d0"
+        },
+        {
+          "id": 9,
+          "nome": "b",
+          "musicas": [],
           "capa": "assets/images/capas/spotify-playlist-default-logo.png",
           "isPublic": false,
           "userId": "d64eaf8b-3357-4473-ae45-37459bf4a7d0"

@@ -28,14 +28,7 @@ export class MusicasService {
 
   getMusicaByNameOrArtist(input: string): Observable<Musica[]> {
     return this.httpClient.get<Musica[]>(this.url).pipe(map(items =>
-      items.filter(item => item.nome.toLowerCase().includes(input.toLowerCase())|| item.artista.toLowerCase().includes(input.toLowerCase()))))
-  }
-
-  saveMusicas(playlist: Musica): Observable<Musica> {
-    return this.httpClient.post<Musica>(this.url, JSON.stringify(playlist), this.httpOptions)
-  }
-
-  deleteMusica(musica: Musica) {
-    return this.httpClient.delete<Musica>(this.url + '/' + musica.id, this.httpOptions)
+      items.filter(item => item.nome.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, "").includes(input.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, "")) 
+                  || item.artista.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, "").includes(input.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, "")))))
   }
 }

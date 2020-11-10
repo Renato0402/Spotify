@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
 import { Usuario } from 'src/app/entidades/usuario';
 import { UsersService } from 'src/app/services/users.service';
 
@@ -13,15 +12,11 @@ export class EntrarComponent implements OnInit {
   form: FormGroup
   isLogged
 
-  constructor(private formBuilder: FormBuilder, private usersService: UsersService, private router: Router) {
+  constructor(private formBuilder: FormBuilder, private usersService: UsersService) {
     this.isLogged = false
   }
 
   ngOnInit(): void {
-    /*if(this.tokenService.getToken){
-      this.isLogged = true
-    }*/
-
     this.form = this.formBuilder.group({
       "email": new FormControl('', [Validators.required, Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")]),
       "senha": new FormControl('', Validators.required)
@@ -31,24 +26,7 @@ export class EntrarComponent implements OnInit {
   }
 
   submit() {
-
-    /*this.authService.login(this.email.value, this.senha.value).subscribe(data => {
-      this.tokenService.saveToken(data.accessToken)
-      this.tokenService.saveUser(data)
-
-      this.isLogged = true
-
-      console.log(data)
-      this.form.reset()
-    })*/
-
     this.usersService.login(this.email.value, this.senha.value)
-
-    /*if(localStorage.getItem("users")){
-      this.isLogged
-    }*/
-
-    //this.usersService.login(this.email.value, this.senha.value)
   }
 
   get email() {
@@ -107,12 +85,6 @@ export class EntrarComponent implements OnInit {
           controlSenha.setErrors(null);
         }
       })
-    }
-  }
-
-  isUserLogged() {
-    if (localStorage.getItem('user')) {
-      return true;
     }
   }
 }
