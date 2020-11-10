@@ -4,7 +4,7 @@
       "id": "863cf984-2bf1-4a97-9c6a-0db96e3bd2cd",
       "nome": "Ítalo",
       "sobrenome": "Souza",
-      "email": "sousaitalo12@gmail.com",
+      "email": "sousaitalo13@gmail.com",
       "senha": "123456",
       "dia": 20,
       "mes": "Fevereiro",
@@ -12,8 +12,18 @@
       "sexo": "Masculino",
       "playlists": [
         {
-          "id": 8,
-          "nome": "5",
+          "id": 9,
+          "nome": "Playlists 1",
+          "musicas": [
+            8
+          ],
+          "capa": "assets/images/capas/spotify-playlist-default-logo.png",
+          "isPublic": false,
+          "userId": "863cf984-2bf1-4a97-9c6a-0db96e3bd2cd"
+        },
+        {
+          "id": 10,
+          "nome": "a",
           "musicas": [],
           "capa": "assets/images/capas/spotify-playlist-default-logo.png",
           "isPublic": false,
