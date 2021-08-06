@@ -1,3 +1,9 @@
+## Authors
+- [Albero Italo Souza dos Santos](https://github.com/PlayerGhost)
+- [Victor Torres de Melo Oliveira](https://github.com/VictorTmelo)
+- [Renato Vidal Moura](https://github.com/Renato0402)
+
+
 # Spotify
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 10.1.2.
